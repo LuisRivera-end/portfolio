@@ -105,9 +105,9 @@ function PortfolioRoutes({
         onLocaleChange={onLocaleChange}
       />
       <Routes>
-        <Route path="/" element={<HomePage dictionary={dictionary} cvHref={cvHref} />} />
+        <Route index element={<HomePage dictionary={dictionary} cvHref={cvHref} />} />
         <Route
-          path="/projects/:slug"
+          path="projects/:slug"
           element={<ProjectRoute dictionary={dictionary} locale={locale} />}
         />
         <Route path="*" element={<NotFoundPage dictionary={dictionary} locale={locale} />} />
