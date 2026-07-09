@@ -34,7 +34,7 @@ function App() {
 
   return (
     <div className="dark min-h-svh bg-background text-foreground">
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <PortfolioRoutes
           cvHref={cvHref}
           dictionary={dictionary}
