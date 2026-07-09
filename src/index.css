@@ -1,0 +1,211 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+@import "@fontsource/cormorant-garamond/600.css";
+@import "@fontsource/cormorant-garamond/700.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Geist Variable", sans-serif;
+  --font-heading: "Cormorant Garamond", serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.8);
+}
+
+:root {
+  --background: rgb(5 11 23);
+  --foreground: rgb(241 245 255);
+  --card: rgb(10 17 33 / 0.76);
+  --card-foreground: rgb(241 245 255);
+  --popover: rgb(6 12 22 / 0.94);
+  --popover-foreground: rgb(241 245 255);
+  --primary: rgb(38 113 255);
+  --primary-foreground: rgb(248 251 255);
+  --secondary: rgb(16 27 48 / 0.9);
+  --secondary-foreground: rgb(236 243 255);
+  --muted: rgb(10 18 34 / 0.58);
+  --muted-foreground: rgb(166 184 216);
+  --accent: rgb(12 28 55);
+  --accent-foreground: rgb(235 242 255);
+  --destructive: rgb(227 85 85);
+  --border: rgb(126 154 255 / 0.18);
+  --input: rgb(17 27 48 / 0.68);
+  --ring: rgb(82 139 255 / 0.55);
+  --radius: 1.2rem;
+  --sidebar: rgb(8 14 26 / 0.95);
+  --sidebar-foreground: rgb(241 245 255);
+  --sidebar-primary: rgb(38 113 255);
+  --sidebar-primary-foreground: rgb(248 251 255);
+  --sidebar-accent: rgb(13 22 40 / 0.94);
+  --sidebar-accent-foreground: rgb(234 241 255);
+  --sidebar-border: rgb(126 154 255 / 0.18);
+  --sidebar-ring: rgb(82 139 255 / 0.55);
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    box-sizing: border-box;
+  }
+
+  html {
+    @apply font-sans scroll-smooth;
+    background:
+      radial-gradient(circle at 18% 18%, rgba(46, 101, 255, 0.18), transparent 25%),
+      radial-gradient(circle at 84% 12%, rgba(66, 134, 255, 0.12), transparent 22%),
+      linear-gradient(180deg, #040816, #07111f 48%, #050914 100%);
+  }
+
+  body {
+    @apply m-0 min-h-svh bg-background text-foreground antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(145, 178, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(145, 178, 255, 0.035) 1px, transparent 1px);
+    background-size: 110px 110px;
+    mask-image: radial-gradient(circle at center, black 38%, transparent 95%);
+    opacity: 0.45;
+    z-index: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    font: inherit;
+  }
+
+  #root {
+    min-height: 100svh;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    backdrop-filter: blur(28px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 32px 90px rgba(3, 10, 26, 0.42);
+  }
+
+  .glass-inline {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(12, 20, 37, 0.42);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .glass-icon {
+    backdrop-filter: blur(18px);
+  }
+
+  .section-kicker {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-blue-200/78;
+  }
+
+  .section-kicker::before {
+    content: "";
+    @apply inline-block size-2 rounded-full bg-blue-300 shadow-[0_0_18px_rgba(96,165,250,0.85)];
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .hero-grid {
+    background-image:
+      linear-gradient(rgba(140, 172, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(140, 172, 255, 0.05) 1px, transparent 1px);
+    background-size: 150px 150px;
+    opacity: 0.38;
+  }
+
+  .hero-lines {
+    background:
+      radial-gradient(circle at left center, rgba(56, 116, 255, 0.24), transparent 44%),
+      linear-gradient(180deg, rgba(131, 169, 255, 0.14), transparent 24%);
+    mask-image: linear-gradient(180deg, transparent 0%, black 14%, black 88%, transparent 100%);
+  }
+
+  .hero-panel::before {
+    content: "";
+    position: absolute;
+    inset: 1rem;
+    border-radius: 1.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    pointer-events: none;
+  }
+
+  .hero-monogram {
+    position: relative;
+  }
+
+  .hero-monogram::after {
+    content: "";
+    position: absolute;
+    inset: -18%;
+    border-radius: 2.3rem;
+    border: 1px solid rgba(121, 160, 255, 0.15);
+    pointer-events: none;
+  }
+
+  .project-preview {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 30px 70px rgba(5, 16, 40, 0.38);
+  }
+
+  .case-paragraph {
+    @apply text-pretty text-base leading-8 text-muted-foreground md:text-lg;
+  }
+}
