@@ -20,6 +20,11 @@ import {
 } from "@/lib/site"
 import type { Locale } from "@/types/portfolio"
 
+const routerBaseName =
+  import.meta.env.BASE_URL === "/"
+    ? "/"
+    : import.meta.env.BASE_URL.replace(/\/$/, "")
+
 function App() {
   const [locale, setLocale] = useState<Locale>(() => getInitialLocale())
 
@@ -34,7 +39,7 @@ function App() {
 
   return (
     <div className="dark min-h-svh bg-background text-foreground">
-      <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <BrowserRouter basename={routerBaseName}>
         <PortfolioRoutes
           cvHref={cvHref}
           dictionary={dictionary}
