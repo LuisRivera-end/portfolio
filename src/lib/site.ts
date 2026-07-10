@@ -1,6 +1,6 @@
 import type { Locale, NavSection, ProjectEntry, ProjectStatus } from "@/types/portfolio"
 
-import { cvFileName, dictionaries } from "@/content/site-content"
+import { cvFileNames, dictionaries } from "@/content/site-content"
 
 const LOCALE_STORAGE_KEY = "portfolio-locale"
 
@@ -30,22 +30,26 @@ export function persistLocale(locale: Locale) {
   }
 }
 
-export function getCvPath(baseUrl: string) {
+export function getAssetPath(baseUrl: string, fileName: string) {
   const normalizedBase = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`
 
-  return `${normalizedBase}${cvFileName}`
+  return `${normalizedBase}${fileName}`
+}
+
+export function getCvPath(baseUrl: string, locale: Locale) {
+  return getAssetPath(baseUrl, cvFileNames[locale])
 }
 
 export function getStatusVariant(status: ProjectStatus) {
   switch (status) {
     case "live":
-      return "bg-emerald-500/12 text-emerald-200 ring-emerald-400/20"
+      return "border-emerald-700/20 bg-emerald-100 text-emerald-950"
     case "private":
-      return "bg-amber-400/10 text-amber-200 ring-amber-400/25"
+      return "border-amber-700/20 bg-amber-100 text-amber-950"
     case "institutional":
-      return "bg-sky-500/10 text-sky-200 ring-sky-400/25"
+      return "border-sky-700/20 bg-sky-100 text-sky-950"
     case "publicRepo":
-      return "bg-blue-500/12 text-blue-100 ring-blue-300/25"
+      return "border-indigo-700/20 bg-indigo-100 text-indigo-950"
     default:
       return "bg-secondary text-secondary-foreground"
   }

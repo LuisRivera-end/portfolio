@@ -9,7 +9,10 @@ const estacionamientoRepoUrl =
 const integracionRepoUrl =
   "https://github.com/LuisRivera-end/Proyecto-Integracion/tree/prod1"
 
-export const cvFileName = "cv-luis-eliezer-rivera-gamez.pdf"
+export const cvFileNames: Record<Locale, string> = {
+  es: "cv-luis-eliezer-rivera-gamez.pdf",
+  en: "cv-luis-eliezer-rivera-gamez-en.pdf",
+}
 
 export const dictionaries: Record<Locale, SiteDictionary> = {
   es: {
@@ -22,25 +25,27 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
     brand: {
       name: "Luis Eliezer Rivera Gámez",
       monogram: "LR",
-      role: "Desarrollador web full stack",
+      role: "Desarrollador web full stack · Estudiante de ISC",
       city: "Gómez Palacio, DGO",
     },
     navigation: {
       projects: "Proyectos",
       experience: "Experiencia",
       stack: "Stack",
+      certifications: "Credenciales",
       contact: "Contacto",
       backToProjects: "Volver a proyectos",
       onThisPage: "En esta página",
     },
     actions: {
-      viewCv: "Ver CV",
+      viewCv: "CV en español",
       contact: "Contactarme",
-      downloadCv: "Descargar CV",
+      downloadCv: "Descargar CV en español",
       visitLiveSite: "Visitar sitio",
       viewRepo: "Ver repositorio",
       viewCase: "Ver caso",
       viewAllProjects: "Explorar proyectos",
+      viewCredential: "Ver certificado",
     },
     labels: {
       live: "Live",
@@ -63,26 +68,26 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
       year: "Año",
       technologies: "Tecnologías",
       repositoryPrivate: "Repositorio privado",
-      bilingualPdf: "PDF · Español / Inglés",
+      cvFormat: "PDF · Español",
     },
     hero: {
-      title:
-        "Desarrollo productos web confiables con arquitectura limpia y UI precisa.",
-      body: "Construyo experiencias digitales enfocadas en rendimiento, mantenibilidad y claridad visual. Mi trabajo reciente combina sitios institucionales, paneles administrativos y productos especializados con una ejecución sólida de frontend y backend.",
+      title: "Sistemas web que hacen el trabajo.",
+      body:
+        "Diseño y construyo productos web claros, mantenibles y listos para operar. Mi trabajo une interfaces cuidadas, lógica de negocio y una entrega que no se queda en el mockup.",
       github: "GitHub",
       linkedin: "LinkedIn",
     },
     featured: {
       eyebrow: "Trabajo destacado",
-      title: "Casos de estudio seleccionados",
+      title: "Trabajo que puedo defender con detalle.",
       description:
-        "Una selección de proyectos donde diseñé, construí y entregué soluciones con impacto real.",
+        "Productos institucionales, operativos y técnicos construidos para resolver un problema concreto.",
     },
     experience: {
       eyebrow: "Experiencia",
-      title: "Trayectoria profesional",
+      title: "Experiencia con contexto.",
       description:
-        "Los espacios donde he crecido, contribuido y convertido requisitos complejos en productos funcionales.",
+        "Roles donde he convertido requisitos ambiguos en software que otras personas pueden usar y mantener.",
       entries: [
         {
           company: "IT Soluciones",
@@ -108,9 +113,9 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
     },
     stackSection: {
       eyebrow: "Stack técnico",
-      title: "Tecnologías que uso para entregar productos",
+      title: "Herramientas con propósito.",
       description:
-        "Herramientas y plataformas con las que construyo interfaces, servicios y flujos de despliegue confiables.",
+        "Tecnologías elegidas por el problema que resuelven, no por llenar una lista.",
       groups: [
         {
           title: "Frontend",
@@ -154,11 +159,35 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
         },
       ],
     },
+    certifications: {
+      eyebrow: "Credenciales",
+      title: "Aprendizaje que se puede comprobar.",
+      description:
+        "Cursos completados que complementan mi práctica de producto, desarrollo y herramientas de IA.",
+      entries: [
+        {
+          issuer: "Google",
+          title: "Inteligencia Artificial y productividad",
+          completedOn: "22 jul 2024",
+          detail: "4 horas · 4 módulos · Autoevaluación",
+          proofId: "OA-2024-0722000067143",
+          fileName: "certificates/google-ai-productivity-certificate.pdf",
+        },
+        {
+          issuer: "DataCamp",
+          title: "Introduction to Agent Skills",
+          completedOn: "7 jun 2026",
+          detail: "2 h 30 min · Curso completado",
+          proofId: "#48,236,111",
+          fileName: "certificates/datacamp-introduction-to-agent-skills.pdf",
+        },
+      ],
+    },
     contactSection: {
       eyebrow: "Contacto",
-      title: "Listo para el siguiente producto",
+      title: "Hablemos de lo que sigue.",
       description:
-        "Estoy abierto a oportunidades donde pueda construir software sólido, interfaces cuidadas y experiencias mantenibles de punta a punta.",
+        "Estoy abierto a oportunidades para construir software útil, interfaces precisas y productos que evolucionen bien.",
       methods: [
         {
           kind: "email",
@@ -180,7 +209,7 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
         },
       ],
     },
-    footer: "Sitio personal construido con React, Tailwind, shadcn/ui, Magic UI y GSAP.",
+    footer: "Sitio personal diseñado y construido con React, Tailwind, Magic UI y GSAP.",
     projects: [
       {
         slug: "facsa",
@@ -523,25 +552,27 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
     brand: {
       name: "Luis Eliezer Rivera Gamez",
       monogram: "LR",
-      role: "Full stack web developer",
+      role: "Full stack web developer · Computer Systems Engineering student",
       city: "Gómez Palacio, DGO",
     },
     navigation: {
       projects: "Projects",
       experience: "Experience",
       stack: "Stack",
+      certifications: "Credentials",
       contact: "Contact",
       backToProjects: "Back to projects",
       onThisPage: "On this page",
     },
     actions: {
-      viewCv: "View CV",
+      viewCv: "English CV",
       contact: "Contact me",
-      downloadCv: "Download CV",
+      downloadCv: "Download English CV",
       visitLiveSite: "Visit live site",
       viewRepo: "View repository",
       viewCase: "Open case study",
       viewAllProjects: "Explore projects",
+      viewCredential: "View certificate",
     },
     labels: {
       live: "Live",
@@ -564,26 +595,26 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
       year: "Year",
       technologies: "Technologies",
       repositoryPrivate: "Private repository",
-      bilingualPdf: "PDF · Spanish / English",
+      cvFormat: "PDF · English",
     },
     hero: {
-      title:
-        "Building reliable web products with clean architecture and sharp UI.",
-      body: "I build digital experiences focused on performance, maintainability, and visual clarity. My recent work spans institutional platforms, admin dashboards, and specialized products with solid frontend and backend execution.",
+      title: "Web systems that do the work.",
+      body:
+        "I design and build clear, maintainable web products ready to operate. My work brings together thoughtful interfaces, business logic, and delivery beyond the mockup.",
       github: "GitHub",
       linkedin: "LinkedIn",
     },
     featured: {
       eyebrow: "Featured work",
-      title: "Selected case studies",
+      title: "Work I can defend in detail.",
       description:
-        "A curated set of projects where I designed, built, and shipped solutions with real impact.",
+        "Institutional, operational, and technical products built to solve a concrete problem.",
     },
     experience: {
       eyebrow: "Experience",
-      title: "Professional timeline",
+      title: "Experience with context.",
       description:
-        "The places where I have grown, contributed, and turned complex requirements into working products.",
+        "Roles where I have turned ambiguous requirements into software people can use and maintain.",
       entries: [
         {
           company: "IT Soluciones",
@@ -609,9 +640,9 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
     },
     stackSection: {
       eyebrow: "Tech stack",
-      title: "Tools I use to ship dependable products",
+      title: "Tools with a purpose.",
       description:
-        "Platforms and workflows I rely on to build interfaces, services, and deployment pipelines that hold up in real use.",
+        "Technologies selected for the problem they solve, not to fill a list.",
       groups: [
         {
           title: "Frontend",
@@ -655,11 +686,35 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
         },
       ],
     },
+    certifications: {
+      eyebrow: "Credentials",
+      title: "Learning you can verify.",
+      description:
+        "Completed courses that complement my product practice, development work, and AI tooling.",
+      entries: [
+        {
+          issuer: "Google",
+          title: "Artificial Intelligence and Productivity",
+          completedOn: "Jul 22, 2024",
+          detail: "4 hours · 4 modules · Self-assessment",
+          proofId: "OA-2024-0722000067143",
+          fileName: "certificates/google-ai-productivity-certificate.pdf",
+        },
+        {
+          issuer: "DataCamp",
+          title: "Introduction to Agent Skills",
+          completedOn: "Jun 7, 2026",
+          detail: "2 h 30 min · Completed course",
+          proofId: "#48,236,111",
+          fileName: "certificates/datacamp-introduction-to-agent-skills.pdf",
+        },
+      ],
+    },
     contactSection: {
       eyebrow: "Contact",
-      title: "Ready for the next product",
+      title: "Let's talk about what is next.",
       description:
-        "I am open to opportunities where I can build dependable software, thoughtful interfaces, and maintainable end-to-end experiences.",
+        "I am open to opportunities to build useful software, precise interfaces, and products that evolve well.",
       methods: [
         {
           kind: "email",
@@ -681,7 +736,7 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
         },
       ],
     },
-    footer: "Personal site built with React, Tailwind, shadcn/ui, Magic UI, and GSAP.",
+    footer: "Personal site designed and built with React, Tailwind, Magic UI, and GSAP.",
     projects: [
       {
         slug: "facsa",

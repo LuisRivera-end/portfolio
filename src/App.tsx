@@ -30,17 +30,18 @@ function App() {
 
   useEffect(() => {
     document.documentElement.lang = locale
-    document.documentElement.classList.add("dark")
     persistLocale(locale)
   }, [locale])
 
   const dictionary = getDictionary(locale)
-  const cvHref = getCvPath(import.meta.env.BASE_URL)
+  const baseUrl = import.meta.env.BASE_URL
+  const cvHref = getCvPath(baseUrl, locale)
 
   return (
-    <div className="dark min-h-svh bg-background text-foreground">
+    <div className="min-h-svh bg-background text-foreground">
       <BrowserRouter basename={routerBaseName}>
         <PortfolioRoutes
+          baseUrl={baseUrl}
           cvHref={cvHref}
           dictionary={dictionary}
           locale={locale}
@@ -56,6 +57,7 @@ function App() {
 }
 
 interface PortfolioRoutesProps {
+  baseUrl: string
   cvHref: string
   dictionary: ReturnType<typeof getDictionary>
   locale: Locale
@@ -63,6 +65,7 @@ interface PortfolioRoutesProps {
 }
 
 function PortfolioRoutes({
+  baseUrl,
   cvHref,
   dictionary,
   locale,
@@ -105,15 +108,18 @@ function PortfolioRoutes({
         onLocaleChange={onLocaleChange}
       />
       <Routes>
-        <Route index element={<HomePage dictionary={dictionary} cvHref={cvHref} />} />
+        <Route
+          index
+          element={<HomePage baseUrl={baseUrl} dictionary={dictionary} cvHref={cvHref} />}
+        />
         <Route
           path="projects/:slug"
           element={<ProjectRoute dictionary={dictionary} locale={locale} />}
         />
         <Route path="*" element={<NotFoundPage dictionary={dictionary} locale={locale} />} />
       </Routes>
-      <footer className="border-t border-white/8 bg-slate-950/65">
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 py-6 text-sm text-white/45 sm:px-6 lg:px-10 md:flex-row md:items-center md:justify-between">
+      <footer className="border-t-2 border-foreground bg-card">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 py-6 text-sm text-muted-foreground sm:px-6 lg:px-10 md:flex-row md:items-center md:justify-between">
           <span>{dictionary.footer}</span>
           <span>{dictionary.brand.city}</span>
         </div>

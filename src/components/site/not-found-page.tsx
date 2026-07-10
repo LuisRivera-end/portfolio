@@ -2,38 +2,35 @@ import { ArrowLeftIcon } from "lucide-react"
 import { Link } from "react-router-dom"
 
 import { Button } from "@/components/ui/button"
-import type { Locale, SiteDictionary } from "@/types/portfolio"
+import type { SiteDictionary } from "@/types/portfolio"
 
 interface NotFoundPageProps {
   dictionary: SiteDictionary
-  locale: Locale
+  locale: "es" | "en"
 }
 
-export function NotFoundPage({ dictionary, locale }: NotFoundPageProps) {
-  const description =
-    locale === "en"
-      ? "The page you requested is not part of the portfolio currently published."
-      : "La pagina solicitada no forma parte del portafolio publicado actualmente."
-
+export function NotFoundPage({ dictionary }: NotFoundPageProps) {
   return (
     <main className="mx-auto flex min-h-[70svh] w-full max-w-7xl items-center px-5 py-16 sm:px-6 lg:px-10">
-      <div className="glass-card flex w-full flex-col gap-6 rounded-[2rem] border border-white/10 bg-slate-950/65 p-8 backdrop-blur-2xl md:p-12">
-        <p className="section-kicker">{dictionary.featured.eyebrow}</p>
-        <h1 className="font-heading text-5xl leading-[0.9] font-semibold tracking-[-0.05em] text-foreground md:text-7xl">
-          404
+      <section className="w-full border-2 border-foreground bg-card p-8 shadow-[8px_8px_0_var(--foreground)] sm:p-12">
+        <p className="editorial-kicker">404</p>
+        <h1 className="mt-6 font-heading text-[clamp(4rem,10vw,9rem)] leading-[0.74] font-semibold tracking-[-0.08em]">
+          {dictionary.brand.name}
         </h1>
-        <p className="max-w-2xl text-lg leading-8 text-muted-foreground">
-          {description}
+        <p className="mt-8 max-w-xl text-base leading-8 text-muted-foreground">
+          {dictionary.navigation.backToProjects}
         </p>
-        <div>
-          <Button asChild size="lg" className="rounded-full px-6">
-            <Link to="/">
-              <ArrowLeftIcon data-icon="inline-start" />
-              {dictionary.navigation.backToProjects}
-            </Link>
-          </Button>
-        </div>
-      </div>
+        <Button
+          asChild
+          size="lg"
+          className="mt-8 h-12 rounded-none border-2 border-foreground bg-primary px-5 font-black text-primary-foreground shadow-[4px_4px_0_var(--foreground)] hover:bg-primary"
+        >
+          <Link to="/">
+            <ArrowLeftIcon data-icon="inline-start" />
+            LR / Portfolio
+          </Link>
+        </Button>
+      </section>
     </main>
   )
 }

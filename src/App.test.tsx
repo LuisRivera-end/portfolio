@@ -5,22 +5,30 @@ import { describe, expect, it } from 'vitest'
 import App from './App'
 
 describe('App', () => {
-  it('renders a recruiter-focused portfolio hero in Spanish', () => {
+  it('renders the Spanish portfolio with a Spanish CV and real credentials', () => {
     render(<App />)
 
     expect(
       screen.getByRole('heading', {
-        name: /desarrollo productos web confiables con arquitectura limpia y ui precisa/i,
+        name: /sistemas web que hacen el trabajo/i,
       }),
     ).toBeInTheDocument()
 
-    expect(screen.getAllByRole('link', { name: /ver cv/i }).length).toBeGreaterThan(0)
-    expect(
-      screen.getByRole('link', { name: /contactarme/i }),
-    ).toBeInTheDocument()
+    const cvLinks = screen.getAllByRole('link', { name: /cv en español/i })
+    expect(cvLinks[0]).toHaveAttribute(
+      'href',
+      expect.stringContaining('cv-luis-eliezer-rivera-gamez.pdf'),
+    )
+
+    const certificates = screen.getAllByRole('link', { name: /ver certificado/i })
+    expect(certificates).toHaveLength(2)
+    expect(certificates[0]).toHaveAttribute(
+      'href',
+      expect.stringContaining('certificates/'),
+    )
   })
 
-  it('switches the portfolio copy to English', async () => {
+  it('switches to English and serves the English CV', async () => {
     const user = userEvent.setup()
 
     render(<App />)
@@ -29,10 +37,14 @@ describe('App', () => {
 
     expect(
       screen.getByRole('heading', {
-        name: /building reliable web products with clean architecture and sharp ui/i,
+        name: /web systems that do the work/i,
       }),
     ).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /contact me/i })).toBeInTheDocument()
+    expect(document.documentElement.lang).toBe('en')
+    expect(screen.getAllByRole('link', { name: /english cv/i })[0]).toHaveAttribute(
+      'href',
+      expect.stringContaining('cv-luis-eliezer-rivera-gamez-en.pdf'),
+    )
   })
 
   it('renders the FACSA case study on a direct route', () => {

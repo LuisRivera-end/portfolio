@@ -1,24 +1,14 @@
 import {
-  ArrowRightIcon,
+  ArrowUpRightIcon,
   CalendarRangeIcon,
   CarFrontIcon,
   DropletsIcon,
-  ExternalLinkIcon,
   HeartPulseIcon,
   TicketIcon,
 } from "lucide-react"
 import { Link } from "react-router-dom"
 
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
 import { getStatusVariant } from "@/lib/site"
 import type { ProjectEntry, SiteDictionary } from "@/types/portfolio"
 
@@ -38,69 +28,58 @@ export function ProjectCard({ dictionary, project }: ProjectCardProps) {
   const Icon = iconMap[project.icon] ?? TicketIcon
 
   return (
-    <Card className="glass-card group/card min-h-full border-white/10 bg-slate-950/65">
-      <CardHeader className="gap-4">
-        <div className="flex items-start justify-between gap-4">
-          <div className="glass-icon flex size-14 items-center justify-center rounded-2xl border border-white/12 bg-white/5 text-blue-200 shadow-[0_0_30px_rgba(38,113,255,0.2)]">
-            <Icon className="size-6" />
-          </div>
-          <div className="flex flex-wrap justify-end gap-2">
-            {project.status.map((status) => (
-              <Badge
-                key={status}
-                variant="outline"
-                className={getStatusVariant(status)}
-              >
-                {dictionary.labels[status]}
-              </Badge>
-            ))}
-          </div>
+    <article className="group relative flex min-h-full flex-col overflow-hidden border-2 border-foreground bg-card p-5 shadow-[7px_7px_0_var(--foreground)] transition duration-200 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[11px_11px_0_var(--foreground)] sm:p-6">
+      <div className="absolute right-0 top-0 size-22 -translate-y-1/2 translate-x-1/2 rounded-full bg-primary/60 blur-2xl transition group-hover:bg-sky-200/75" />
+      <div className="relative flex items-start justify-between gap-4">
+        <div className="grid size-12 place-items-center border-2 border-foreground bg-background shadow-[3px_3px_0_var(--foreground)]">
+          <Icon className="size-5" />
         </div>
-        <div className="flex flex-col gap-2">
-          <CardTitle className="text-2xl text-foreground">{project.title}</CardTitle>
-          <CardDescription className="text-base leading-7 text-muted-foreground">
-            {project.featuredSummary}
-          </CardDescription>
-        </div>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-5">
-        <div className="project-preview flex min-h-52 items-end rounded-[1.75rem] border border-white/10 bg-[radial-gradient(circle_at_20%_20%,rgba(70,115,255,0.26),transparent_45%),linear-gradient(160deg,rgba(8,17,38,0.98),rgba(6,10,20,0.9))] p-5">
-          <div className="flex flex-col gap-2">
-            <p className="text-sm font-semibold tracking-[0.22em] text-blue-200/85 uppercase">
-              {project.type}
-            </p>
-            <p className="max-w-sm text-sm leading-6 text-white/70">
-              {project.summary}
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {project.stack.slice(0, 4).map((item) => (
-            <span
-              key={item}
-              className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium tracking-wide text-white/70"
+        <div className="flex max-w-[65%] flex-wrap justify-end gap-1.5">
+          {project.status.map((status) => (
+            <Badge
+              key={status}
+              variant="outline"
+              className={`rounded-none border px-2 py-1 text-[0.6rem] font-black tracking-[0.08em] uppercase ${getStatusVariant(status)}`}
             >
-              {item}
-            </span>
+              {dictionary.labels[status]}
+            </Badge>
           ))}
         </div>
-      </CardContent>
-      <CardFooter className="flex items-center justify-between gap-3 bg-white/[0.02]">
-        <Button asChild size="lg" className="rounded-full">
-          <Link to={`/projects/${project.slug}`}>
-            <ArrowRightIcon data-icon="inline-end" />
-            {dictionary.actions.viewCase}
-          </Link>
-        </Button>
-        {project.liveUrl ? (
-          <Button variant="ghost" asChild className="rounded-full">
-            <a href={project.liveUrl} target="_blank" rel="noreferrer">
-              <ExternalLinkIcon data-icon="inline-end" />
-              {dictionary.actions.visitLiveSite}
-            </a>
-          </Button>
-        ) : null}
-      </CardFooter>
-    </Card>
+      </div>
+
+      <div className="relative mt-12">
+        <p className="text-xs font-black tracking-[0.12em] text-muted-foreground uppercase">
+          {project.type} · {project.year}
+        </p>
+        <h3 className="mt-3 font-heading text-5xl leading-[0.82] font-semibold tracking-[-0.065em] text-foreground">
+          {project.title}
+        </h3>
+        <p className="mt-5 max-w-xl text-sm leading-7 text-muted-foreground">
+          {project.featuredSummary}
+        </p>
+      </div>
+
+      <div className="relative mt-8 flex flex-wrap gap-1.5">
+        {project.stack.slice(0, 5).map((item) => (
+          <span
+            key={item}
+            className="border border-foreground/20 bg-background px-2.5 py-1 text-[0.66rem] font-bold text-foreground"
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+
+      <div className="relative mt-auto flex items-center justify-between border-t-2 border-foreground pt-5">
+        <span className="text-xs font-bold text-muted-foreground">{project.role}</span>
+        <Link
+          to={`/projects/${project.slug}`}
+          className="inline-flex size-10 items-center justify-center border-2 border-foreground bg-primary shadow-[3px_3px_0_var(--foreground)] transition group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:shadow-[5px_5px_0_var(--foreground)]"
+          aria-label={`${dictionary.actions.viewCase}: ${project.title}`}
+        >
+          <ArrowUpRightIcon className="size-4" />
+        </Link>
+      </div>
+    </article>
   )
 }

@@ -1,7 +1,6 @@
-import { MenuIcon, SparklesIcon } from "lucide-react"
+import { FileTextIcon, MenuIcon } from "lucide-react"
 import { Link, NavLink } from "react-router-dom"
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -12,6 +11,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { getSectionHash } from "@/lib/site"
+import { cn } from "@/lib/utils"
 import type { Locale, SiteDictionary } from "@/types/portfolio"
 
 interface SiteHeaderProps {
@@ -21,7 +21,13 @@ interface SiteHeaderProps {
   onLocaleChange: (locale: Locale) => void
 }
 
-const navSections = ["projects", "experience", "stack", "contact"] as const
+const navSections = [
+  "projects",
+  "experience",
+  "stack",
+  "certifications",
+  "contact",
+] as const
 
 export function SiteHeader({
   dictionary,
@@ -32,104 +38,94 @@ export function SiteHeader({
   const navLabels = dictionary.navigation
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/8 bg-slate-950/70 backdrop-blur-2xl">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-6 lg:px-10">
+    <header className="sticky top-0 z-50 border-b-2 border-foreground bg-background/82 backdrop-blur-xl">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-5 py-3 sm:px-6 lg:px-10">
         <Link
           to="/"
-          className="flex items-center gap-3 rounded-full transition hover:opacity-90"
+          className="group flex items-center gap-3 text-xs font-black tracking-[0.14em] uppercase"
         >
-          <Avatar className="size-12 border border-white/10 bg-white/5 shadow-[0_0_35px_rgba(38,113,255,0.18)]">
-            <AvatarFallback className="bg-transparent font-heading text-xl font-semibold tracking-tight text-foreground">
-              {dictionary.brand.monogram}
-            </AvatarFallback>
-          </Avatar>
-          <div className="hidden flex-col sm:flex">
-            <span className="font-heading text-xl font-semibold tracking-tight text-foreground">
-              Luis Rivera
-            </span>
-            <span className="text-sm text-muted-foreground">
-              {dictionary.brand.role}
-            </span>
-          </div>
+          <span className="grid size-7 place-items-center border-2 border-foreground bg-primary text-[0.63rem] shadow-[3px_3px_0_var(--foreground)] transition-transform group-hover:-translate-x-0.5 group-hover:-translate-y-0.5">
+            LR
+          </span>
+          <span>LR / Portfolio</span>
         </Link>
 
-        <nav className="hidden items-center gap-10 lg:flex">
+        <nav className="hidden items-center gap-6 xl:flex" aria-label="Primary navigation">
           {navSections.map((section) => (
             <NavLink
               key={section}
               to={{ pathname: "/", hash: getSectionHash(section) }}
-              className="text-sm font-medium tracking-wide text-white/72 transition hover:text-white"
+              className={({ isActive }) =>
+                cn(
+                  "text-[0.69rem] font-bold tracking-[0.1em] text-muted-foreground uppercase transition hover:text-foreground",
+                  isActive && "text-foreground",
+                )
+              }
             >
               {navLabels[section]}
             </NavLink>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-4 lg:flex">
-          <div className="glass-inline flex items-center gap-1 rounded-full p-1">
-            <LocaleButton
-              active={locale === "es"}
-              onClick={() => onLocaleChange("es")}
-            >
-              ES
-            </LocaleButton>
-            <LocaleButton
-              active={locale === "en"}
-              onClick={() => onLocaleChange("en")}
-            >
-              EN
-            </LocaleButton>
-          </div>
+        <div className="hidden items-center gap-3 lg:flex">
+          <span className="hidden text-[0.6rem] font-black tracking-[0.1em] text-muted-foreground uppercase xl:block">
+            {dictionary.brand.city} · 2026
+          </span>
+          <LocaleSwitch locale={locale} onLocaleChange={onLocaleChange} />
           <Button
             asChild
             size="lg"
-            className="rounded-full px-5 shadow-[0_0_30px_rgba(38,113,255,0.42)]"
+            className="h-10 rounded-none border-2 border-foreground bg-primary px-4 text-xs font-black tracking-[0.08em] text-primary-foreground uppercase shadow-[4px_4px_0_var(--foreground)] transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-primary"
           >
             <a href={cvHref} target="_blank" rel="noreferrer">
-              <SparklesIcon data-icon="inline-start" />
+              <FileTextIcon data-icon="inline-start" />
               {dictionary.actions.viewCv}
             </a>
           </Button>
         </div>
 
         <div className="flex items-center gap-3 lg:hidden">
-          <div className="glass-inline flex items-center gap-1 rounded-full p-1">
-            <LocaleButton
-              active={locale === "es"}
-              onClick={() => onLocaleChange("es")}
-            >
-              ES
-            </LocaleButton>
-            <LocaleButton
-              active={locale === "en"}
-              onClick={() => onLocaleChange("en")}
-            >
-              EN
-            </LocaleButton>
-          </div>
+          <LocaleSwitch locale={locale} onLocaleChange={onLocaleChange} compact />
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon">
+              <Button
+                variant="outline"
+                size="icon"
+                className="size-10 rounded-none border-2 border-foreground bg-card shadow-[3px_3px_0_var(--foreground)]"
+              >
                 <MenuIcon />
                 <span className="sr-only">Open navigation</span>
               </Button>
             </SheetTrigger>
-            <SheetContent className="border-white/10 bg-slate-950/90 p-0 backdrop-blur-2xl">
-              <SheetHeader className="border-b border-white/10">
-                <SheetTitle>{dictionary.brand.name}</SheetTitle>
-                <SheetDescription>{dictionary.brand.role}</SheetDescription>
+            <SheetContent className="border-l-2 border-foreground bg-background p-0 text-foreground">
+              <SheetHeader className="border-b-2 border-foreground p-6 text-left">
+                <SheetTitle className="font-sans text-sm font-black tracking-[0.14em] uppercase">
+                  LR / Portfolio
+                </SheetTitle>
+                <SheetDescription className="text-muted-foreground">
+                  {dictionary.brand.city}
+                </SheetDescription>
               </SheetHeader>
-              <div className="flex flex-col gap-3 p-4">
-                {navSections.map((section) => (
-                  <Button key={section} variant="ghost" asChild className="justify-start">
+              <div className="flex flex-col gap-2 p-5">
+                {navSections.map((section, index) => (
+                  <Button
+                    key={section}
+                    variant="ghost"
+                    asChild
+                    className="h-12 justify-between rounded-none border border-transparent px-3 text-left font-bold tracking-wide hover:border-foreground hover:bg-card"
+                  >
                     <Link to={{ pathname: "/", hash: getSectionHash(section) }}>
-                      {navLabels[section]}
+                      <span>{navLabels[section]}</span>
+                      <span className="text-xs text-muted-foreground">0{index + 1}</span>
                     </Link>
                   </Button>
                 ))}
-                <Button asChild className="mt-2">
+                <Button
+                  asChild
+                  className="mt-4 h-12 rounded-none border-2 border-foreground bg-primary font-black text-primary-foreground shadow-[4px_4px_0_var(--foreground)] hover:bg-primary"
+                >
                   <a href={cvHref} target="_blank" rel="noreferrer">
-                    <SparklesIcon data-icon="inline-start" />
+                    <FileTextIcon data-icon="inline-start" />
                     {dictionary.actions.viewCv}
                   </a>
                 </Button>
@@ -142,25 +138,37 @@ export function SiteHeader({
   )
 }
 
-interface LocaleButtonProps {
-  active: boolean
-  children: string
-  onClick: () => void
+interface LocaleSwitchProps {
+  locale: Locale
+  compact?: boolean
+  onLocaleChange: (locale: Locale) => void
 }
 
-function LocaleButton({ active, children, onClick }: LocaleButtonProps) {
+function LocaleSwitch({ locale, compact = false, onLocaleChange }: LocaleSwitchProps) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={[
-        "rounded-full px-3 py-1 text-xs font-semibold tracking-[0.2em] transition",
-        active
-          ? "bg-primary text-primary-foreground shadow-[0_0_18px_rgba(38,113,255,0.4)]"
-          : "text-white/60 hover:text-white",
-      ].join(" ")}
+    <div
+      className={cn(
+        "flex border-2 border-foreground bg-card p-0.5 shadow-[3px_3px_0_var(--foreground)]",
+        compact && "shadow-[2px_2px_0_var(--foreground)]",
+      )}
+      aria-label="Language"
     >
-      {children}
-    </button>
+      {(["es", "en"] as const).map((nextLocale) => (
+        <button
+          key={nextLocale}
+          type="button"
+          aria-pressed={locale === nextLocale}
+          onClick={() => onLocaleChange(nextLocale)}
+          className={cn(
+            "px-2 py-1 text-[0.62rem] font-black tracking-[0.16em] uppercase transition",
+            locale === nextLocale
+              ? "bg-primary text-primary-foreground"
+              : "text-muted-foreground hover:text-foreground",
+          )}
+        >
+          {nextLocale.toUpperCase()}
+        </button>
+      ))}
+    </div>
   )
 }

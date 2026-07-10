@@ -1,6 +1,5 @@
 import {
   ArrowLeftIcon,
-  ArrowUpRightIcon,
   BriefcaseBusinessIcon,
   CalendarRangeIcon,
   CarFrontIcon,
@@ -10,20 +9,13 @@ import {
   Layers3Icon,
   Link2Icon,
   LockIcon,
+  TicketIcon,
   UsersRoundIcon,
 } from "lucide-react"
 import { Link } from "react-router-dom"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
 import { getStatusVariant } from "@/lib/site"
 import { cn } from "@/lib/utils"
 import type { ProjectEntry, SiteDictionary } from "@/types/portfolio"
@@ -48,280 +40,205 @@ const sectionKeys = [
   "gallery",
 ] as const
 
-export function ProjectCasePage({
-  dictionary,
-  project,
-}: ProjectCasePageProps) {
-  const Icon = iconMap[project.icon] ?? Layers3Icon
+export function ProjectCasePage({ dictionary, project }: ProjectCasePageProps) {
+  const Icon = iconMap[project.icon] ?? TicketIcon
 
   return (
-    <main className="mx-auto grid w-full max-w-7xl gap-8 px-5 py-12 sm:px-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:px-10">
-      <div className="flex min-w-0 flex-col gap-7">
-        <div className="flex flex-col gap-6 rounded-[2rem] border border-white/10 bg-slate-950/65 p-6 shadow-[0_0_60px_rgba(38,113,255,0.14)] backdrop-blur-xl md:p-8">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-sm text-white/65 transition hover:text-white"
-          >
-            <ArrowLeftIcon className="size-4" />
-            {dictionary.navigation.backToProjects}
-          </Link>
+    <main className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-12 sm:px-6 lg:grid-cols-[minmax(0,1fr)_260px] lg:px-10 lg:py-16">
+      <div className="min-w-0">
+        <section className="relative overflow-hidden border-2 border-foreground bg-card p-6 shadow-[8px_8px_0_var(--foreground)] sm:p-8">
+          <div className="absolute -right-18 -top-18 size-72 rounded-full bg-sky-200/80 blur-3xl" />
+          <div className="relative">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 text-sm font-bold text-muted-foreground transition hover:text-foreground"
+            >
+              <ArrowLeftIcon className="size-4" />
+              {dictionary.navigation.backToProjects}
+            </Link>
 
-          <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_280px] xl:items-start">
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-wrap gap-2">
-                {project.status.map((status) => (
-                  <Badge
-                    key={`${project.slug}-status-${status}`}
-                    variant="outline"
-                    className={getStatusVariant(status)}
-                  >
-                    {dictionary.labels[status]}
-                  </Badge>
-                ))}
-              </div>
+            <div className="mt-10 flex flex-wrap gap-1.5">
+              {project.status.map((status) => (
+                <Badge
+                  key={status}
+                  variant="outline"
+                  className={`rounded-none border px-2 py-1 text-[0.6rem] font-black tracking-[0.08em] uppercase ${getStatusVariant(status)}`}
+                >
+                  {dictionary.labels[status]}
+                </Badge>
+              ))}
+            </div>
 
-              <div className="flex flex-col gap-3">
-                <h1 className="font-heading text-6xl leading-[0.88] font-semibold tracking-[-0.05em] text-foreground md:text-7xl">
+            <div className="mt-6 grid gap-8 xl:grid-cols-[minmax(0,1fr)_230px] xl:items-end">
+              <div>
+                <p className="text-xs font-black tracking-[0.14em] text-muted-foreground uppercase">
+                  {project.type} · {project.year}
+                </p>
+                <h1 className="mt-4 font-heading text-[clamp(4.5rem,10vw,8.5rem)] leading-[0.72] font-semibold tracking-[-0.08em]">
                   {project.title}
                 </h1>
-                <p className="max-w-3xl text-pretty text-lg leading-8 text-muted-foreground">
+                <p className="mt-8 max-w-3xl text-pretty text-base leading-8 text-muted-foreground sm:text-lg">
                   {project.summary}
                 </p>
               </div>
+              <div className="grid aspect-square place-items-center border-2 border-foreground bg-primary shadow-[5px_5px_0_var(--foreground)]">
+                <Icon className="size-14" strokeWidth={1.5} />
+              </div>
+            </div>
 
-              <div className="flex flex-wrap gap-4">
-                {project.liveUrl ? (
-                  <Button asChild size="lg" className="rounded-full px-6">
-                    <a href={project.liveUrl} target="_blank" rel="noreferrer">
-                      <ExternalLinkIcon data-icon="inline-start" />
-                      {dictionary.actions.visitLiveSite}
-                    </a>
-                  </Button>
-                ) : null}
+            <div className="mt-10 flex flex-wrap gap-3">
+              {project.liveUrl ? (
                 <Button
-                  asChild={Boolean(project.repositoryUrl)}
+                  asChild
                   size="lg"
-                  variant="outline"
-                  className="rounded-full px-6"
-                  disabled={!project.repositoryUrl}
+                  className="h-11 rounded-none border-2 border-foreground bg-primary px-4 font-black text-primary-foreground shadow-[4px_4px_0_var(--foreground)] hover:bg-primary"
                 >
-                  {project.repositoryUrl ? (
-                    <a href={project.repositoryUrl} target="_blank" rel="noreferrer">
-                      <Link2Icon data-icon="inline-start" />
-                      {dictionary.actions.viewRepo}
-                    </a>
-                  ) : (
-                    <span>
-                      <LockIcon data-icon="inline-start" />
-                      {dictionary.actions.viewRepo}
-                    </span>
-                  )}
+                  <a href={project.liveUrl} target="_blank" rel="noreferrer">
+                    <ExternalLinkIcon data-icon="inline-start" />
+                    {dictionary.actions.visitLiveSite}
+                  </a>
                 </Button>
-              </div>
-              {!project.repositoryUrl ? (
-                <p className="text-sm text-white/45">{dictionary.labels.repositoryPrivate}</p>
               ) : null}
-            </div>
-
-            <div className="glass-card flex aspect-[1.08] items-center justify-center rounded-[2rem] border border-white/10 bg-[radial-gradient(circle_at_top,rgba(81,137,255,0.28),transparent_42%),linear-gradient(145deg,rgba(10,18,37,0.96),rgba(5,9,18,0.92))] p-6 text-center">
-              <div className="flex flex-col items-center gap-4">
-                <div className="glass-icon flex size-18 items-center justify-center rounded-[1.75rem] border border-white/12 bg-white/5 text-blue-100 shadow-[0_0_40px_rgba(38,113,255,0.22)]">
-                  <Icon className="size-9" />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <span className="font-heading text-5xl font-semibold tracking-[-0.05em] text-foreground">
-                    {project.title}
+              <Button
+                asChild={Boolean(project.repositoryUrl)}
+                size="lg"
+                variant="outline"
+                disabled={!project.repositoryUrl}
+                className="h-11 rounded-none border-2 border-foreground bg-background px-4 font-bold shadow-[4px_4px_0_var(--foreground)] hover:bg-background"
+              >
+                {project.repositoryUrl ? (
+                  <a href={project.repositoryUrl} target="_blank" rel="noreferrer">
+                    <Link2Icon data-icon="inline-start" />
+                    {dictionary.actions.viewRepo}
+                  </a>
+                ) : (
+                  <span>
+                    <LockIcon data-icon="inline-start" />
+                    {dictionary.labels.repositoryPrivate}
                   </span>
-                  <span className="text-sm tracking-[0.22em] text-blue-100/65 uppercase">
-                    {project.type}
-                  </span>
-                </div>
-              </div>
+                )}
+              </Button>
             </div>
           </div>
+        </section>
 
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            <FactCard
-              icon={BriefcaseBusinessIcon}
-              label={dictionary.labels.role}
-              value={project.role}
-            />
-            <FactCard
-              icon={CalendarRangeIcon}
-              label={dictionary.labels.period}
-              value={project.period}
-            />
-            <FactCard
-              icon={UsersRoundIcon}
-              label={dictionary.labels.team}
-              value={project.team}
-            />
-            <FactCard
-              icon={Layers3Icon}
-              label={dictionary.labels.stack}
-              value={project.stack.slice(0, 4).join(", ")}
-            />
-          </div>
+        <div className="mt-6 grid gap-px border-2 border-foreground bg-foreground sm:grid-cols-2 xl:grid-cols-4">
+          <FactBlock icon={BriefcaseBusinessIcon} label={dictionary.labels.role} value={project.role} />
+          <FactBlock icon={CalendarRangeIcon} label={dictionary.labels.period} value={project.period} />
+          <FactBlock icon={UsersRoundIcon} label={dictionary.labels.team} value={project.team} />
+          <FactBlock
+            icon={Layers3Icon}
+            label={dictionary.labels.stack}
+            value={project.stack.slice(0, 4).join(" · ")}
+          />
         </div>
 
-        <CaseSection id="challenge" title={dictionary.labels.challenge}>
-          <p className="case-paragraph">{project.challenge}</p>
-        </CaseSection>
+        <div className="mt-14 flex flex-col gap-12">
+          <CaseSection id="challenge" index="01" title={dictionary.labels.challenge}>
+            <p className="case-paragraph">{project.challenge}</p>
+          </CaseSection>
 
-        <CaseSection id="solution" title={dictionary.labels.solution}>
-          <p className="case-paragraph">{project.solution}</p>
-        </CaseSection>
+          <CaseSection id="solution" index="02" title={dictionary.labels.solution}>
+            <p className="case-paragraph">{project.solution}</p>
+          </CaseSection>
 
-        <CaseSection id="architecture" title={dictionary.labels.architecture}>
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {project.architecture.map((node) => (
-              <Card
-                key={node.title}
-                className="glass-card border-white/10 bg-slate-950/65"
-              >
-                <CardHeader className="gap-2">
-                  <CardTitle className="text-2xl text-foreground">{node.title}</CardTitle>
-                  <CardDescription className="text-base text-blue-100/75">
+          <CaseSection id="architecture" index="03" title={dictionary.labels.architecture}>
+            <div className="grid gap-px border-2 border-foreground bg-foreground md:grid-cols-2">
+              {project.architecture.map((node, index) => (
+                <article
+                  key={node.title}
+                  className={cn(
+                    "bg-card p-5",
+                    project.architecture.length % 2 === 1 &&
+                      index === project.architecture.length - 1 &&
+                      "md:col-span-2",
+                  )}
+                >
+                  <span className="text-xs font-black tracking-[0.12em] text-muted-foreground uppercase">
                     {node.subtitle}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm leading-7 text-white/68">{node.detail}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </CaseSection>
-
-        <CaseSection id="impact" title={dictionary.labels.impact}>
-          <p className="case-paragraph max-w-4xl">{project.impact}</p>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            {project.impactMetrics.map((metric) => (
-              <Card
-                key={metric.label}
-                className="glass-card border-white/10 bg-slate-950/65"
-              >
-                <CardHeader className="gap-2">
-                  <CardDescription className="text-sm tracking-[0.18em] text-blue-100/65 uppercase">
-                    {metric.label}
-                  </CardDescription>
-                  <CardTitle className="text-3xl text-foreground">{metric.value}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm leading-7 text-white/65">{metric.detail}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </CaseSection>
-
-        <CaseSection id="gallery" title={dictionary.labels.gallery}>
-          <div className="grid gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.9fr)]">
-            <GalleryPanel
-              title={project.gallery[0]?.title ?? project.title}
-              description={project.gallery[0]?.description ?? project.summary}
-              large
-              image={project.gallery[0]?.image}
-              project={project}
-            />
-            <div className="grid gap-4">
-              {project.gallery.slice(1).map((item) => (
-                <GalleryPanel
-                  key={item.title}
-                  title={item.title}
-                  description={item.description}
-                  image={item.image}
-                  project={project}
-                />
+                  </span>
+                  <h3 className="mt-4 font-heading text-3xl font-semibold tracking-[-0.04em]">
+                    {node.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{node.detail}</p>
+                </article>
               ))}
             </div>
-          </div>
-        </CaseSection>
+          </CaseSection>
+
+          <CaseSection id="impact" index="04" title={dictionary.labels.impact}>
+            <p className="case-paragraph max-w-4xl">{project.impact}</p>
+            <div className="mt-7 grid gap-px border-2 border-foreground bg-foreground md:grid-cols-3">
+              {project.impactMetrics.map((metric) => (
+                <article key={metric.label} className="bg-background p-5">
+                  <span className="text-xs font-black tracking-[0.12em] text-muted-foreground uppercase">
+                    {metric.label}
+                  </span>
+                  <h3 className="mt-5 font-heading text-5xl leading-none font-semibold tracking-[-0.06em]">
+                    {metric.value}
+                  </h3>
+                  <p className="mt-4 text-sm leading-7 text-muted-foreground">{metric.detail}</p>
+                </article>
+              ))}
+            </div>
+          </CaseSection>
+
+          <CaseSection id="gallery" index="05" title={dictionary.labels.gallery}>
+            <div className="grid gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.82fr)]">
+              <GalleryPanel
+                description={project.gallery[0]?.description ?? project.summary}
+                image={project.gallery[0]?.image}
+                large
+                project={project}
+                title={project.gallery[0]?.title ?? project.title}
+              />
+              <div className="grid gap-5">
+                {project.gallery.slice(1).map((item) => (
+                  <GalleryPanel
+                    key={item.title}
+                    description={item.description}
+                    image={item.image}
+                    project={project}
+                    title={item.title}
+                  />
+                ))}
+              </div>
+            </div>
+          </CaseSection>
+        </div>
       </div>
 
       <aside className="hidden lg:block">
-        <div className="glass-card sticky top-28 flex flex-col gap-6 rounded-[2rem] border border-white/10 bg-slate-950/72 p-6">
-          <div className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold text-foreground">
-              {dictionary.navigation.onThisPage}
-            </h2>
-            <nav className="flex flex-col gap-2">
-              {sectionKeys.map((sectionKey) => (
-                <a
-                  key={sectionKey}
-                  href={`#${sectionKey}`}
-                  className="rounded-full px-3 py-2 text-sm text-white/62 transition hover:bg-white/[0.04] hover:text-white"
-                >
-                  {dictionary.labels[sectionKey]}
-                </a>
-              ))}
-            </nav>
-          </div>
-
-          <Separator className="bg-white/10" />
-
-          <div className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold text-foreground">
+        <div className="sticky top-24 border-2 border-foreground bg-background p-5 shadow-[5px_5px_0_var(--foreground)]">
+          <p className="text-xs font-black tracking-[0.13em] text-muted-foreground uppercase">
+            {dictionary.navigation.onThisPage}
+          </p>
+          <nav className="mt-5 flex flex-col border-t border-foreground/25">
+            {sectionKeys.map((sectionKey, index) => (
+              <a
+                key={sectionKey}
+                href={`#${sectionKey}`}
+                className="flex items-center justify-between border-b border-foreground/25 py-3 text-sm font-bold transition hover:pl-1"
+              >
+                <span>{dictionary.labels[sectionKey]}</span>
+                <span className="text-xs text-muted-foreground">0{index + 1}</span>
+              </a>
+            ))}
+          </nav>
+          <div className="mt-6 border-t border-foreground/25 pt-5">
+            <p className="text-xs font-black tracking-[0.13em] text-muted-foreground uppercase">
               {dictionary.labels.technologies}
-            </h2>
-            <div className="flex flex-wrap gap-2">
+            </p>
+            <div className="mt-3 flex flex-wrap gap-1.5">
               {project.stack.map((item) => (
                 <span
                   key={item}
-                  className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium tracking-wide text-white/70"
+                  className="border border-foreground/20 bg-card px-2 py-1 text-[0.62rem] font-bold"
                 >
                   {item}
                 </span>
               ))}
             </div>
-          </div>
-
-          <Separator className="bg-white/10" />
-
-          <div className="flex flex-col gap-4">
-            <h2 className="text-lg font-semibold text-foreground">
-              {dictionary.labels.projectLinks}
-            </h2>
-            {project.liveUrl ? (
-              <Button variant="ghost" asChild className="justify-between rounded-full">
-                <a href={project.liveUrl} target="_blank" rel="noreferrer">
-                  {dictionary.actions.visitLiveSite}
-                  <ArrowUpRightIcon />
-                </a>
-              </Button>
-            ) : null}
-            <Button
-              variant="ghost"
-              asChild={Boolean(project.repositoryUrl)}
-              disabled={!project.repositoryUrl}
-              className={cn(
-                "justify-between rounded-full",
-                !project.repositoryUrl && "opacity-60",
-              )}
-            >
-              {project.repositoryUrl ? (
-                <a href={project.repositoryUrl} target="_blank" rel="noreferrer">
-                  {dictionary.actions.viewRepo}
-                  <ArrowUpRightIcon />
-                </a>
-              ) : (
-                <span>
-                  {dictionary.actions.viewRepo}
-                  <LockIcon />
-                </span>
-              )}
-            </Button>
-          </div>
-
-          <Separator className="bg-white/10" />
-
-          <div className="flex flex-col gap-2">
-            <span className="text-sm text-white/45">{dictionary.labels.projectType}</span>
-            <span className="text-base text-foreground">{project.type}</span>
-          </div>
-          <div className="flex flex-col gap-2">
-            <span className="text-sm text-white/45">{dictionary.labels.year}</span>
-            <span className="text-base text-foreground">{project.year}</span>
           </div>
         </div>
       </aside>
@@ -329,90 +246,74 @@ export function ProjectCasePage({
   )
 }
 
-interface FactCardProps {
+interface FactBlockProps {
   icon: typeof BriefcaseBusinessIcon
   label: string
   value: string
 }
 
-function FactCard({ icon: Icon, label, value }: FactCardProps) {
+function FactBlock({ icon: Icon, label, value }: FactBlockProps) {
   return (
-    <div className="glass-card rounded-[1.55rem] border border-white/10 bg-white/[0.03] p-4">
-      <div className="flex items-center gap-3">
-        <div className="glass-icon flex size-10 items-center justify-center rounded-2xl border border-white/12 bg-white/5 text-blue-100">
-          <Icon className="size-4.5" />
-        </div>
-        <span className="text-sm text-white/55">{label}</span>
-      </div>
-      <p className="mt-4 text-base leading-7 text-foreground">{value}</p>
-    </div>
+    <article className="bg-background p-4">
+      <Icon className="size-4.5" />
+      <p className="mt-7 text-[0.62rem] font-black tracking-[0.12em] text-muted-foreground uppercase">
+        {label}
+      </p>
+      <p className="mt-2 text-sm leading-6 font-bold">{value}</p>
+    </article>
   )
 }
 
 interface CaseSectionProps {
   children: React.ReactNode
   id: string
+  index: string
   title: string
 }
 
-function CaseSection({ children, id, title }: CaseSectionProps) {
+function CaseSection({ children, id, index, title }: CaseSectionProps) {
   return (
-    <section
-      id={id}
-      className="glass-card rounded-[2rem] border border-white/10 bg-slate-950/60 p-6 md:p-8"
-    >
-      <div className="flex flex-col gap-6">
-        <h2 className="font-heading text-4xl font-semibold tracking-[-0.04em] text-foreground">
+    <section id={id} className="scroll-mt-28">
+      <div className="mb-6 flex items-end justify-between gap-5 border-b-2 border-foreground pb-4">
+        <h2 className="font-heading text-5xl leading-none font-semibold tracking-[-0.06em]">
           {title}
         </h2>
-        {children}
+        <span className="text-xs font-black tracking-[0.12em] text-muted-foreground">{index}</span>
       </div>
+      {children}
     </section>
   )
 }
 
 interface GalleryPanelProps {
-  title: string
   description: string
-  large?: boolean
   image?: string
+  large?: boolean
   project: ProjectEntry
+  title: string
 }
 
-function GalleryPanel({
-  title,
-  description,
-  large = false,
-  image,
-  project,
-}: GalleryPanelProps) {
+function GalleryPanel({ description, image, large = false, project, title }: GalleryPanelProps) {
   return (
-    <div className="glass-card overflow-hidden rounded-[1.8rem] border border-white/10 bg-slate-950/65">
+    <article className="group overflow-hidden border-2 border-foreground bg-card shadow-[5px_5px_0_var(--foreground)]">
       <div
         className={cn(
-          "relative flex items-end overflow-hidden bg-[radial-gradient(circle_at_top,rgba(83,139,255,0.26),transparent_36%),linear-gradient(155deg,rgba(10,18,37,0.96),rgba(5,9,18,0.92))] p-5",
-          large ? "min-h-[24rem]" : "min-h-[11.75rem]",
+          "relative flex items-end overflow-hidden border-b-2 border-foreground bg-[linear-gradient(135deg,rgba(223,255,61,0.78),rgba(201,236,255,0.88)_46%,rgba(247,247,241,0.9))] p-5",
+          large ? "min-h-80" : "min-h-44",
         )}
       >
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(17,17,15,0.14)_1px,transparent_1px),linear-gradient(90deg,rgba(17,17,15,0.14)_1px,transparent_1px)] bg-[size:28px_28px] opacity-55" />
         {image ? (
-          <img
-            src={image}
-            alt={title}
-            className="absolute inset-0 h-full w-full object-cover opacity-90"
-          />
+          <img src={image} alt={title} className="absolute inset-0 h-full w-full object-cover" />
         ) : null}
-        <div className="relative z-10 flex max-w-sm flex-col gap-2">
-          <span className="text-xs font-semibold tracking-[0.22em] text-blue-100/70 uppercase">
-            {project.title}
-          </span>
-          <span className="font-heading text-3xl font-semibold tracking-[-0.04em] text-foreground">
+        <div className="relative max-w-md">
+          <span className="text-[0.62rem] font-black tracking-[0.12em] uppercase">{project.title}</span>
+          <h3 className="mt-3 font-heading text-4xl leading-[0.86] font-semibold tracking-[-0.055em]">
             {title}
-          </span>
+          </h3>
         </div>
       </div>
-      <div className="p-5">
-        <p className="text-sm leading-7 text-white/65">{description}</p>
-      </div>
-    </div>
+      <p className="p-5 text-sm leading-7 text-muted-foreground">{description}</p>
+    </article>
   )
 }

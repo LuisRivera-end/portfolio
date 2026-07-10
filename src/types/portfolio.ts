@@ -1,6 +1,11 @@
 export type Locale = "es" | "en"
 
-export type NavSection = "projects" | "experience" | "stack" | "contact"
+export type NavSection =
+  | "projects"
+  | "experience"
+  | "stack"
+  | "certifications"
+  | "contact"
 
 export type ProjectStatus = "live" | "private" | "publicRepo" | "institutional"
 
@@ -31,6 +36,15 @@ export interface StackGroup {
   title: string
   description: string
   items: string[]
+}
+
+export interface CertificateEntry {
+  issuer: string
+  title: string
+  completedOn: string
+  detail: string
+  proofId: string
+  fileName: string
 }
 
 export interface ArchitectureNode {
@@ -91,6 +105,7 @@ export interface SiteDictionary {
     projects: string
     experience: string
     stack: string
+    certifications: string
     contact: string
     backToProjects: string
     onThisPage: string
@@ -103,6 +118,7 @@ export interface SiteDictionary {
     viewRepo: string
     viewCase: string
     viewAllProjects: string
+    viewCredential: string
   }
   labels: {
     live: string
@@ -125,7 +141,7 @@ export interface SiteDictionary {
     year: string
     technologies: string
     repositoryPrivate: string
-    bilingualPdf: string
+    cvFormat: string
   }
   hero: {
     title: string
@@ -149,6 +165,12 @@ export interface SiteDictionary {
     title: string
     description: string
     groups: StackGroup[]
+  }
+  certifications: {
+    eyebrow: string
+    title: string
+    description: string
+    entries: CertificateEntry[]
   }
   contactSection: {
     eyebrow: string
