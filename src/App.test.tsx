@@ -57,6 +57,13 @@ describe('App', () => {
       screen.getAllByRole('link', { name: /visitar sitio/i }).length,
     ).toBeGreaterThan(0)
     expect(screen.getByText(/repositorio privado/i)).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { name: /panel administrativo \(demo\)/i }),
+    ).toBeInTheDocument()
+    expect(screen.getByRole('img', { name: 'Admisiones' })).toHaveAttribute(
+      'src',
+      expect.stringContaining('projects/facsa-admissions.png'),
+    )
 
     window.history.pushState({}, '', '/')
   })

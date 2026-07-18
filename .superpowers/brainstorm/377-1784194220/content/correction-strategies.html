@@ -1,0 +1,59 @@
+<h2>¿Cómo debe quedar la evidencia visual?</h2>
+<p class="subtitle">Las tres opciones respetan el enfoque híbrido. Cambian cuánto recapturamos y qué historia cuenta cada galería.</p>
+
+<div class="section">
+  <div class="label">Hallazgos que obligan a corregir</div>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:12px">
+    <div class="mockup">
+      <div class="mockup-header">FACSA · “Panel administrativo”</div>
+      <img src="/files/facsa-admin-current.png" alt="Captura actual del acceso de FACSA" style="width:100%;aspect-ratio:1.95;object-fit:cover;display:block">
+      <div style="padding:10px 12px;color:#b42318;font-weight:700">La imagen es el inicio de sesión, no el panel.</div>
+    </div>
+    <div class="mockup">
+      <div class="mockup-header">FACSA · “Transparencia”</div>
+      <img src="/files/facsa-transparency-current.png" alt="Captura actual de Admisiones" style="width:100%;aspect-ratio:1.95;object-fit:cover;display:block">
+      <div style="padding:10px 12px;color:#b42318;font-weight:700">La pantalla real corresponde a Admisiones.</div>
+    </div>
+    <div class="mockup">
+      <div class="mockup-header">Estacionamiento · 2 espacios</div>
+      <img src="/files/parking-monitor-current.png" alt="Captura repetida del flujo de pago" style="width:100%;aspect-ratio:1.95;object-fit:cover;display:block">
+      <div style="padding:10px 12px;color:#b42318;font-weight:700">Monitor y reportes usan la misma captura.</div>
+    </div>
+  </div>
+</div>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)" style="border-color:#16803c">
+    <div class="card-body">
+      <div class="letter">A</div>
+      <h3>Evidencia primero · recomendada</h3>
+      <p>Recapturar sólo lo que está mal y hacer que cada texto describa exactamente lo visible.</p>
+      <div style="margin-top:14px;display:grid;gap:8px;font-size:.92rem">
+        <div><strong>FACSA:</strong> portal + panel real + Admisiones</div>
+        <div><strong>Presión:</strong> conservar flujo real, limpiar encuadres</div>
+        <div><strong>Estacionamiento:</strong> pago + dashboard + circuito</div>
+        <div><strong>Turnos:</strong> ticket + cola + operador configurado</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-body">
+      <div class="letter">B</div>
+      <h3>Historia de producto</h3>
+      <p>Recapturar una secuencia de usuario por proyecto. Cuenta mejor el flujo, pero requiere más estados simulados y más cambios temporales.</p>
+      <div style="margin-top:14px;color:var(--muted)">Ejemplo: entrada → operación → resultado, aunque no sean las pantallas técnicamente más fuertes.</div>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-body">
+      <div class="letter">C</div>
+      <h3>Intervención conservadora</h3>
+      <p>Cambiar la mayoría de los captions y sustituir únicamente duplicados, accesos y estados de configuración.</p>
+      <div style="margin-top:14px;color:var(--muted)">Menor esfuerzo, pero algunas galerías seguirían mostrando menos capacidad de la que el código real demuestra.</div>
+    </div>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:24px">Selecciona una opción. Mi recomendación es A porque maximiza credibilidad sin convertir la captura en otro proyecto de desarrollo.</p>

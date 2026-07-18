@@ -16,7 +16,7 @@ import { Link } from "react-router-dom"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { getStatusVariant } from "@/lib/site"
+import { getAssetPath, getStatusVariant } from "@/lib/site"
 import { cn } from "@/lib/utils"
 import type { ProjectEntry, SiteDictionary } from "@/types/portfolio"
 
@@ -74,7 +74,7 @@ export function ProjectCasePage({ dictionary, project }: ProjectCasePageProps) {
                 <p className="text-xs font-black tracking-[0.14em] text-muted-foreground uppercase">
                   {project.type} · {project.year}
                 </p>
-                <h1 className="mt-4 font-heading text-[clamp(4.5rem,10vw,8.5rem)] leading-[0.72] font-semibold tracking-[-0.08em]">
+                <h1 className="mt-4 font-heading text-[clamp(2.5rem,7vw,5.8rem)] leading-[0.88] font-semibold tracking-[-0.06em] break-words">
                   {project.title}
                 </h1>
                 <p className="mt-8 max-w-3xl text-pretty text-base leading-8 text-muted-foreground sm:text-lg">
@@ -294,6 +294,8 @@ interface GalleryPanelProps {
 }
 
 function GalleryPanel({ description, image, large = false, project, title }: GalleryPanelProps) {
+  const resolvedImage = image ? getAssetPath(import.meta.env.BASE_URL, image) : undefined
+
   return (
     <article className="group overflow-hidden border-2 border-foreground bg-card shadow-[5px_5px_0_var(--foreground)]">
       <div
@@ -303,11 +305,25 @@ function GalleryPanel({ description, image, large = false, project, title }: Gal
         )}
       >
         <div className="absolute inset-0 bg-[linear-gradient(rgba(17,17,15,0.14)_1px,transparent_1px),linear-gradient(90deg,rgba(17,17,15,0.14)_1px,transparent_1px)] bg-[size:28px_28px] opacity-55" />
-        {image ? (
-          <img src={image} alt={title} className="absolute inset-0 h-full w-full object-cover" />
+        {resolvedImage ? (
+          <>
+            <img
+              src={resolvedImage}
+              alt={title}
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/20 transition-opacity duration-300 group-hover:opacity-90" />
+          </>
         ) : null}
-        <div className="relative max-w-md">
-          <span className="text-[0.62rem] font-black tracking-[0.12em] uppercase">{project.title}</span>
+        <div className={cn("relative max-w-md", resolvedImage ? "text-white" : "text-foreground")}>
+          <span
+            className={cn(
+              "text-[0.62rem] font-black tracking-[0.12em] uppercase",
+              resolvedImage ? "text-primary" : "text-foreground/80",
+            )}
+          >
+            {project.title}
+          </span>
           <h3 className="mt-3 font-heading text-4xl leading-[0.86] font-semibold tracking-[-0.055em]">
             {title}
           </h3>

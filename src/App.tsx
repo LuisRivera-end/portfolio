@@ -97,7 +97,27 @@ function PortfolioRoutes({
     document.title = currentProject
       ? `${currentProject.title} | ${dictionary.brand.name}`
       : dictionary.seo.title
-  }, [dictionary.brand.name, dictionary.seo.title, locale, location.pathname])
+
+    const metaDescription = document.querySelector('meta[name="description"]')
+    const nextDescription = currentProject
+      ? currentProject.summary
+      : dictionary.seo.description
+
+    if (metaDescription) {
+      metaDescription.setAttribute("content", nextDescription)
+    } else {
+      const newMeta = document.createElement("meta")
+      newMeta.name = "description"
+      newMeta.content = nextDescription
+      document.head.appendChild(newMeta)
+    }
+  }, [
+    dictionary.brand.name,
+    dictionary.seo.title,
+    dictionary.seo.description,
+    locale,
+    location.pathname,
+  ])
 
   return (
     <>

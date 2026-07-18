@@ -20,10 +20,10 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
     seo: {
       title: "Luis Rivera | Portafolio de Desarrollo Web",
       description:
-        "Portafolio bilingüe de Luis Eliezer Rivera Gámez, desarrollador web enfocado en productos confiables, arquitectura limpia y experiencia de usuario precisa.",
+        "Portafolio bilingüe de Luis Eliezer Rivera Gamez, desarrollador web enfocado en productos confiables, arquitectura limpia y experiencia de usuario precisa.",
     },
     brand: {
-      name: "Luis Eliezer Rivera Gámez",
+      name: "Luis Eliezer Rivera Gamez",
       monogram: "LR",
       role: "Desarrollador web full stack · Estudiante de ISC",
       city: "Gómez Palacio, DGO",
@@ -289,19 +289,22 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
         ],
         gallery: [
           {
-            title: "Sitio público",
+            title: "Portal institucional",
             description:
-              "Experiencia pública para contenido académico e institucional.",
+              "Sitio público real para información académica, admisiones y servicios de FACSA.",
+            image: "projects/facsa-public.png",
           },
           {
-            title: "Panel administrativo",
+            title: "Panel administrativo (demo)",
             description:
-              "Operación interna con módulos, permisos y flujos controlados.",
+              "Estado demo reproducible del dashboard real, con métricas, módulos y accesos por rol.",
+            image: "projects/facsa-admin.png",
           },
           {
-            title: "Módulos de transparencia",
+            title: "Admisiones",
             description:
-              "Información crítica organizada con navegación más clara.",
+              "Página pública real con requisitos, fichas y acceso al proceso de ingreso.",
+            image: "projects/facsa-admissions.png",
           },
         ],
       },
@@ -371,16 +374,21 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
         gallery: [
           {
             title: "Dashboard de lecturas",
-            description: "Vista principal para registrar y consultar datos.",
-          },
-          {
-            title: "Filtros por fecha",
             description:
-              "Búsqueda focalizada por periodos usando zona horaria local.",
+              "Captura y resumen de mediciones con datos demo reproducibles.",
+            image: "projects/presion-dashboard.png",
           },
           {
-            title: "Exportación PDF",
-            description: "Salida lista para reportes o seguimiento.",
+            title: "Historial y filtros",
+            description:
+              "Consulta real por fechas con presión, pulso y notas.",
+            image: "projects/presion-history.png",
+          },
+          {
+            title: "Reporte PDF",
+            description:
+              "Salida PDF generada desde la aplicación con el historial visible.",
+            image: "projects/presion-pdf.png",
           },
         ],
       },
@@ -443,18 +451,22 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
         ],
         gallery: [
           {
-            title: "Modelo de disponibilidad",
+            title: "Consulta y pago de ticket",
             description:
-              "Representación del estado de espacios y control asociado.",
+              "Flujo público real para consultar un boleto e iniciar el pago.",
+            image: "projects/estacionamiento-monitor.png",
           },
           {
-            title: "Lógica de sensores",
-            description: "Conexión entre lectura física y decisiones del sistema.",
+            title: "Dashboard operativo",
+            description:
+              "Vista real en modo fixture con ocupación, tickets e indicadores del día.",
+            image: "projects/estacionamiento-dashboard.png",
           },
           {
-            title: "Integración académica",
+            title: "Circuitos de entrada y salida",
             description:
-              "Ejemplo de trabajo práctico fuera del entorno web tradicional.",
+              "Diagrama de ambos accesos con Arduino UNO, pantallas LCD, sensores IR, servomotores y teclado matricial.",
+            image: "projects/estacionamiento-circuit.png",
           },
         ],
       },
@@ -524,19 +536,22 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
         ],
         gallery: [
           {
-            title: "Pantalla de turnos",
+            title: "Monitor de cola (demo)",
             description:
-              "Gestión de estados, colas y visibilidad del flujo operativo.",
+              "Estado demo reproducible con turnos, sectores, ventanillas y tiempos de espera.",
+            image: "projects/turnos-queue.png",
           },
           {
-            title: "Servicios conectados",
+            title: "Generación de ticket",
             description:
-              "Relación entre frontend, backend e impresión física.",
+              "Interfaz real para elegir un departamento y generar un turno de atención.",
+            image: "projects/turnos-ticket.png",
           },
           {
-            title: "Permisos y control",
+            title: "Panel de ventanilla (demo)",
             description:
-              "Flujos protegidos para diferentes tipos de operador.",
+              "Estado demo reproducible del flujo para llamar, completar y supervisar turnos.",
+            image: "projects/turnos-operator.png",
           },
         ],
       },
@@ -547,7 +562,7 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
     seo: {
       title: "Luis Rivera | Web Development Portfolio",
       description:
-        "Bilingual portfolio of Luis Eliezer Rivera Gámez, a web developer focused on reliable products, clean architecture, and precise user interfaces.",
+        "Bilingual portfolio of Luis Eliezer Rivera Gamez, a web developer focused on reliable products, clean architecture, and precise user interfaces.",
     },
     brand: {
       name: "Luis Eliezer Rivera Gamez",
@@ -816,19 +831,22 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
         ],
         gallery: [
           {
-            title: "Public website",
+            title: "Institutional portal",
             description:
-              "Public-facing experience for academic and institutional content.",
+              "Real public website for FACSA academic information, admissions, and services.",
+            image: "projects/facsa-public.png",
           },
           {
-            title: "Admin panel",
+            title: "Admin dashboard (demo)",
             description:
-              "Internal operations with modules, permissions, and controlled flows.",
+              "Reproducible demo state of the real dashboard, with metrics, modules, and role-based access.",
+            image: "projects/facsa-admin.png",
           },
           {
-            title: "Transparency modules",
+            title: "Admissions",
             description:
-              "Critical information organized with clearer navigation.",
+              "Real public page for requirements, application forms, and the admissions process.",
+            image: "projects/facsa-admissions.png",
           },
         ],
       },
@@ -898,16 +916,21 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
         gallery: [
           {
             title: "Readings dashboard",
-            description: "Primary surface for input and review.",
-          },
-          {
-            title: "Date filters",
             description:
-              "Focused search by period using the local time zone.",
+              "Measurement capture and summary using reproducible demo data.",
+            image: "projects/presion-dashboard.png",
           },
           {
-            title: "PDF export",
-            description: "Report output ready to share or store.",
+            title: "History and filters",
+            description:
+              "Real date-based view with blood pressure, pulse, and notes.",
+            image: "projects/presion-history.png",
+          },
+          {
+            title: "PDF report",
+            description:
+              "PDF output generated by the application from the visible history.",
+            image: "projects/presion-pdf.png",
           },
         ],
       },
@@ -970,19 +993,22 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
         ],
         gallery: [
           {
-            title: "Availability model",
+            title: "Ticket lookup and payment",
             description:
-              "Representation of parking state and its control layer.",
+              "Real public flow for looking up a ticket and starting payment.",
+            image: "projects/estacionamiento-monitor.png",
           },
           {
-            title: "Sensor logic",
+            title: "Operations dashboard",
             description:
-              "Connection between physical reads and system decisions.",
+              "Real fixture-mode view of occupancy, tickets, and daily indicators.",
+            image: "projects/estacionamiento-dashboard.png",
           },
           {
-            title: "Academic integration",
+            title: "Entry and exit circuits",
             description:
-              "Practical work outside a traditional web-only environment.",
+              "Diagram of both access points with Arduino UNO, LCD screens, IR sensors, servomotors, and a matrix keypad.",
+            image: "projects/estacionamiento-circuit.png",
           },
         ],
       },
@@ -1052,19 +1078,22 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
         ],
         gallery: [
           {
-            title: "Queue screen",
+            title: "Queue monitor (demo)",
             description:
-              "Visibility into states, queues, and the operational flow.",
+              "Reproducible demo state with tickets, service areas, windows, and wait times.",
+            image: "projects/turnos-queue.png",
           },
           {
-            title: "Connected services",
+            title: "Ticket generation",
             description:
-              "Relationship between frontend, backend, and printed output.",
+              "Real interface for choosing a department and generating a service ticket.",
+            image: "projects/turnos-ticket.png",
           },
           {
-            title: "Permissions and control",
+            title: "Operator window (demo)",
             description:
-              "Protected flows for different operator roles.",
+              "Reproducible demo state of the flow for calling, completing, and supervising tickets.",
+            image: "projects/turnos-operator.png",
           },
         ],
       },
