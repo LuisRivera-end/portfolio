@@ -139,6 +139,11 @@
     font-variant-numeric: lining-nums proportional-nums;
   }
 
+  /* Sections receive programmatic focus after menu navigation; no ring needed. */
+  section[tabindex="-1"]:focus {
+    outline: none;
+  }
+
   ::selection {
     background: var(--primary);
     color: var(--foreground);

@@ -2,42 +2,51 @@ import { useLayoutEffect, type DependencyList, type RefObject } from "react"
 
 import { gsap, ScrollTrigger } from "@/lib/gsap"
 
+export function prefersReducedMotion() {
+  return (
+    typeof window.matchMedia !== "function" ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  )
+}
+
 /**
  * Scroll-triggered entrance for every `[data-reveal]` inside `scope`.
- * Initial hidden state is only applied inside the matchMedia callback, so
- * reduced-motion users (and jsdom) always see the content.
+ * - Skipped entirely under reduced motion (and in jsdom), so content is always visible.
+ * - Animates opacity only (never visibility), so links and buttons stay in the Tab order;
+ *   focusing a still-hidden element reveals it immediately.
  */
 export function useReveal(scope: RefObject<HTMLElement | null>, deps: DependencyList) {
   useLayoutEffect(() => {
     const root = scope.current
-    if (!root || typeof window.matchMedia !== "function") {
+    if (!root || prefersReducedMotion()) {
       return
     }
 
-    const mm = gsap.matchMedia(root)
+    const show = (targets: Element[] | Element) =>
+      gsap.to(targets, {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        stagger: 0.08,
+        ease: "power3.out",
+        overwrite: true,
+        // Removes GSAP's inline transform/translate so Tailwind hover utilities work again.
+        clearProps: "all",
+      })
 
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
+    const ctx = gsap.context(() => {
       const items = gsap.utils.toArray<HTMLElement>("[data-reveal]", root)
       if (items.length) {
-        gsap.set(items, { autoAlpha: 0, y: 28 })
+        gsap.set(items, { opacity: 0, y: 28 })
         ScrollTrigger.batch(items, {
           // clamp() keeps triggers near the page bottom reachable at max scroll.
           start: "clamp(top 92%)",
           once: true,
-          onEnter: (batch) =>
-            gsap.to(batch, {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.7,
-              stagger: 0.08,
-              ease: "power3.out",
-              clearProps: "transform,opacity,visibility",
-            }),
+          onEnter: (batch) => show(batch),
         })
       }
 
-      const lines = gsap.utils.toArray<HTMLElement>("[data-reveal-line]", root)
-      lines.forEach((line) => {
+      gsap.utils.toArray<HTMLElement>("[data-reveal-line]", root).forEach((line) => {
         const vertical = line.dataset.revealLine === "y"
         gsap.fromTo(
           line,
@@ -54,9 +63,15 @@ export function useReveal(scope: RefObject<HTMLElement | null>, deps: Dependency
           },
         )
       })
+    }, root)
 
-      ScrollTrigger.refresh()
-    })
+    const onFocusIn = (event: FocusEvent) => {
+      const target = (event.target as Element | null)?.closest("[data-reveal]")
+      if (target && Number(getComputedStyle(target).opacity) < 1) {
+        show(target)
+      }
+    }
+    root.addEventListener("focusin", onFocusIn)
 
     // Web fonts change line heights after first paint; re-measure once they land.
     let cancelled = false
@@ -68,8 +83,9 @@ export function useReveal(scope: RefObject<HTMLElement | null>, deps: Dependency
 
     return () => {
       cancelled = true
+      root.removeEventListener("focusin", onFocusIn)
       window.removeEventListener("load", refresh)
-      mm.revert()
+      ctx.revert()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)

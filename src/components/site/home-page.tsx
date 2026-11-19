@@ -24,7 +24,7 @@ import { ProjectCard, type ProjectCardVariant } from "@/components/site/project-
 import { GitHubMark, LinkedInMark } from "@/components/site/social-icons"
 import { gsap } from "@/lib/gsap"
 import { assetUrl, getAssetPath } from "@/lib/site"
-import { useReveal } from "@/lib/use-reveal"
+import { prefersReducedMotion, useReveal } from "@/lib/use-reveal"
 import { cn } from "@/lib/utils"
 import type { CertificateEntry, SiteDictionary } from "@/types/portfolio"
 
@@ -57,25 +57,24 @@ export function HomePage({ baseUrl, dictionary, cvHref }: HomePageProps) {
 
   useLayoutEffect(() => {
     const scope = heroRef.current
-    if (!scope || typeof window.matchMedia !== "function") {
+    if (!scope || prefersReducedMotion()) {
       return
     }
 
-    const mm = gsap.matchMedia(scope)
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
+    const ctx = gsap.context(() => {
       gsap
-        .timeline({ defaults: { ease: "power3.out" } })
-        .from("[data-hero-reveal]", { autoAlpha: 0, duration: 0.72, stagger: 0.09, y: 26 })
+        .timeline({ defaults: { ease: "power3.out", clearProps: "all" } })
+        .from("[data-hero-reveal]", { opacity: 0, duration: 0.72, stagger: 0.09, y: 26 })
         .from(
           "[data-hero-card]",
-          { autoAlpha: 0, duration: 0.8, rotate: 1.5, scale: 0.96, y: 34 },
+          { opacity: 0, duration: 0.8, rotate: 1.5, scale: 0.96, y: 34 },
           "-=0.55",
         )
 
       gsap.to("[data-hero-orbit]", { duration: 24, ease: "none", repeat: -1, rotate: 360 })
-    })
+    }, scope)
 
-    return () => mm.revert()
+    return () => ctx.revert()
   }, [dictionary.localeName])
 
   const { title, titleAccent } = dictionary.hero
@@ -479,10 +478,7 @@ function HeroShowcase({ dictionary }: { dictionary: SiteDictionary }) {
   const [paused, setPaused] = useState(false)
 
   useEffect(() => {
-    if (paused || typeof window.matchMedia !== "function") {
-      return
-    }
-    if (!window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+    if (paused || prefersReducedMotion()) {
       return
     }
     const timer = window.setInterval(() => {

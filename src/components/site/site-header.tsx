@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { FileTextIcon, MenuIcon } from "lucide-react"
 import { Link, useLocation } from "react-router-dom"
 
@@ -42,8 +42,10 @@ export function SiteHeader({
   const isHome = location.pathname === "/"
   const spied = useActiveSection(navSections, isHome)
   const hashSection = location.hash.replace("#", "")
-  const activeSection = isHome ? (spied ?? (hashSection || undefined)) : undefined
+  // Hash only until the observer reports; afterwards an empty result clears the indicator.
+  const activeSection = !isHome ? undefined : spied === null ? hashSection || undefined : spied
   const [menuOpen, setMenuOpen] = useState(false)
+  const pendingSection = useRef<string | null>(null)
 
   return (
     <header className="sticky top-0 z-50 border-b-2 border-foreground bg-background/85 backdrop-blur-xl">
@@ -120,6 +122,20 @@ export function SiteHeader({
             <SheetContent
               closeLabel={dictionary.a11y.closeMenu}
               className="border-l-2 border-foreground bg-background p-0 text-foreground"
+              onCloseAutoFocus={(event) => {
+                const section = pendingSection.current
+                pendingSection.current = null
+                if (!section) return
+                // Move focus to the chosen section instead of back to the menu button.
+                event.preventDefault()
+                requestAnimationFrame(() => {
+                  const target = document.getElementById(section)
+                  if (target) {
+                    if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1")
+                    target.focus({ preventScroll: true })
+                  }
+                })
+              }}
             >
               <SheetHeader className="border-b-2 border-foreground p-6 text-left">
                 <SheetTitle className="font-sans text-sm font-black tracking-[0.14em] uppercase">
@@ -139,7 +155,10 @@ export function SiteHeader({
                   >
                     <Link
                       to={{ pathname: "/", hash: getSectionHash(section) }}
-                      onClick={() => setMenuOpen(false)}
+                      onClick={() => {
+                        pendingSection.current = section
+                        setMenuOpen(false)
+                      }}
                     >
                       <span>{navLabels[section]}</span>
                       <span className="text-xs text-muted-foreground">0{index + 1}</span>

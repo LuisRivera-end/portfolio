@@ -410,7 +410,8 @@ interface CaseSectionProps {
 
 function CaseSection({ children, id, index, title }: CaseSectionProps) {
   return (
-    <section id={id} className="scroll-mt-[calc(var(--header-h)+4.5rem)] lg:scroll-mt-[calc(var(--header-h)+1.5rem)]">
+    // <html> already pads by the header height; only the mobile chip bar needs extra room.
+    <section id={id} className="scroll-mt-16 lg:scroll-mt-0">
       <div data-reveal className="mb-6 flex items-end justify-between gap-5 border-b-2 border-foreground pb-4">
         <h2 className="min-w-0 font-heading text-[clamp(2.4rem,6vw,3.25rem)] leading-none font-semibold tracking-[-0.055em] break-words">
           {title}

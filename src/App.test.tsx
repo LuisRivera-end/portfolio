@@ -137,7 +137,8 @@ describe('App', () => {
 
     render(<App />)
 
-    await user.click(screen.getByRole('button', { name: 'Ampliar imagen: Admisiones' }))
+    const opener = screen.getByRole('button', { name: 'Ampliar imagen: Admisiones' })
+    await user.click(opener)
 
     const dialog = await screen.findByRole('dialog')
     expect(within(dialog).getByRole('heading', { name: 'Admisiones' })).toBeInTheDocument()
@@ -145,7 +146,10 @@ describe('App', () => {
     await user.keyboard('{ArrowRight}')
     expect(within(screen.getByRole('dialog')).getByRole('heading', { name: 'Vista móvil' })).toBeInTheDocument()
 
+    expect(within(screen.getByRole('dialog')).getByRole('status')).toHaveTextContent('4 de 4')
+
     await user.keyboard('{Escape}')
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    expect(opener).toHaveFocus()
   })
 })

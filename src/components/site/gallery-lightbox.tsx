@@ -21,7 +21,13 @@ export function GalleryLightbox({
   onIndexChange,
 }: GalleryLightboxProps) {
   const pointerStart = useRef<number | null>(null)
+  const opener = useRef<HTMLElement | null>(null)
   const open = index !== null
+
+  // Remember what opened the dialog (it is opened programmatically, not via a Trigger).
+  if (open && opener.current === null && typeof document !== "undefined") {
+    opener.current = document.activeElement as HTMLElement | null
+  }
   const total = items.length
   const item = index !== null ? items[index] : undefined
 
@@ -50,7 +56,15 @@ export function GalleryLightbox({
     <Dialog open={open} onOpenChange={(next) => (next ? undefined : onIndexChange(null))}>
       <DialogContent
         closeLabel={labels.closeDialog}
-        className="inset-2 grid grid-rows-[minmax(0,1fr)_auto] border-2 border-foreground bg-background shadow-[8px_8px_0_var(--primary)] sm:inset-6 lg:inset-10"
+        className="inset-2 grid grid-rows-[minmax(11rem,1fr)_auto] overflow-y-auto border-2 border-foreground bg-background shadow-[8px_8px_0_var(--primary)] sm:inset-6 lg:inset-10"
+        onCloseAutoFocus={(event) => {
+          const target = opener.current
+          opener.current = null
+          if (target && document.contains(target)) {
+            event.preventDefault()
+            target.focus()
+          }
+        }}
         onKeyDown={(event) => {
           if (event.key === "ArrowRight") {
             event.preventDefault()
@@ -64,7 +78,7 @@ export function GalleryLightbox({
         {item ? (
           <>
             <div
-              className="media-grid relative flex min-h-0 touch-pan-y items-center justify-center overflow-hidden p-3 pt-16 sm:p-6 sm:pt-16"
+              className="media-grid relative flex min-h-0 touch-pan-y items-center justify-center overflow-hidden p-3 pt-14 sm:p-6 sm:pt-16"
               onPointerDown={(event) => {
                 pointerStart.current = event.clientX
               }}
@@ -88,6 +102,9 @@ export function GalleryLightbox({
                 }
               />
             </div>
+            <p className="sr-only" role="status" aria-live="polite">
+              {item.title} · {counter}
+            </p>
             <div className="flex flex-col gap-4 border-t-2 border-foreground bg-card p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
               <div className="min-w-0">
                 <p className="text-[0.62rem] font-black tracking-[0.12em] text-muted-foreground uppercase">

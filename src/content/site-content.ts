@@ -359,7 +359,7 @@ const esProjects = buildProjects({
       ],
       [
         "Panel administrativo (demo)",
-        "Dashboard real en estado demo, con métricas, módulos y accesos por rol.",
+        "Panel real en estado demo, con métricas, módulos y accesos por rol.",
       ],
       [
         "Admisiones",
@@ -461,7 +461,7 @@ const esProjects = buildProjects({
     summary:
       "Plataforma de e-commerce de moda construida como monolito modular, con persistencia híbrida (PostgreSQL, MongoDB y Redis), motor de recomendaciones explicable y probador virtual 3D.",
     featuredSummary:
-      "E-commerce de moda con tres bases de datos, recomendaciones explicables, motor de outfits por color y probador 3D en el navegador.",
+      "E-commerce de moda con tres bases de datos, recomendaciones explicables, motor de conjuntos por color y probador 3D en el navegador.",
     role: "Líder técnico · full stack",
     period: "2026",
     team: "3 personas · 19 de 28 commits",
@@ -471,8 +471,8 @@ const esProjects = buildProjects({
     highlights: [
       "Monolito modular en NestJS y Prisma: PostgreSQL para transacciones, MongoDB para telemetría y Redis para caché.",
       "Recomendaciones explicables (patrón Strategy) con perfiles de afinidad que decaen con el tiempo.",
-      "Motor de outfits con reglas de color en OKLCH y probador virtual 3D con avatares paramétricos (Three.js / React Three Fiber).",
-      "Checkout idempotente, límites de peticiones, puntos y niveles de lealtad. El pago es simulado.",
+      "Motor de conjuntos con reglas de color en OKLCH y probador virtual 3D con avatares paramétricos (Three.js / React Three Fiber).",
+      "Proceso de compra idempotente, límites de peticiones, puntos y niveles de lealtad. El pago es simulado.",
     ],
     challenge:
       "Diseñar una tienda de moda que fuera más allá del catálogo: recomendar prendas que combinen, explicar por qué y dejar que la persona las vea en un avatar antes de comprar.",
@@ -523,7 +523,7 @@ const esProjects = buildProjects({
       ["Inicio", "Portada editorial con la tarjeta de miembro, puntos y nivel de lealtad (datos de demostración)."],
       ["Catálogo", "Listado de prendas con filtros por categoría y paleta de color."],
       ["Detalle de prenda", "Ficha con variantes de talla, stock y puntos que otorga la compra."],
-      ["Outfit builder y probador 3D", "Maniquí 3D con Three.js y puntuación de armonía del look explicada."],
+      ["Armador de conjuntos y probador 3D", "Maniquí 3D con Three.js y puntuación de armonía del look explicada."],
     ],
   },
   turnos: {
@@ -539,7 +539,7 @@ const esProjects = buildProjects({
     repoNote: "Repositorio público",
     highlights: [
       "Pantalla pública, generación de tickets y panel de ventanilla sincronizados con WebSockets.",
-      "API asíncrona en FastAPI y MariaDB con autenticación, gestión de empleados y ventanillas, dashboard y reportes PDF.",
+      "API asíncrona en FastAPI y MariaDB con autenticación, gestión de empleados y ventanillas, panel de control y reportes PDF.",
       "Servicio de impresión en Node.js compilado a ejecutable de Windows para impresoras térmicas POS.",
       "Pruebas con pytest y despliegue con Docker Compose detrás de Nginx con HTTPS.",
     ],
@@ -558,7 +558,7 @@ const esProjects = buildProjects({
       {
         title: "FastAPI + MariaDB",
         subtitle: "API asíncrona",
-        detail: "Autenticación, ventanillas, dashboard y reportes PDF.",
+        detail: "Autenticación, ventanillas, panel de control y reportes PDF.",
       },
       {
         title: "WebSockets",
@@ -605,9 +605,9 @@ const esProjects = buildProjects({
   },
   estacionamiento: {
     summary:
-      "Estacionamiento inteligente con unidades Arduino en entrada y salida, un puente serial→HTTP y una API en FastAPI que alimenta el cobro de boletos y un dashboard en Next.js.",
+      "Estacionamiento inteligente con unidades Arduino en entrada y salida, un puente serial→HTTP y una API en FastAPI que alimenta el cobro de boletos y un panel operativo en Next.js.",
     featuredSummary:
-      "IoT de punta a punta: Arduino en los accesos, API en FastAPI con tareas programadas y un dashboard operativo en Next.js.",
+      "IoT de punta a punta: Arduino en los accesos, API en FastAPI con tareas programadas y un panel operativo en Next.js.",
     role: "Desarrollador full stack + hardware",
     period: "2026",
     team: "Proyecto académico",
@@ -618,7 +618,7 @@ const esProjects = buildProjects({
       "Unidades Arduino con sensores IR, servomotores, LCD y teclado matricial en entrada y salida.",
       "Puente serial→HTTP que convierte los eventos físicos en llamadas a la API.",
       "API en FastAPI con migraciones Alembic sobre PostgreSQL y un proceso programado que vence boletos.",
-      "Consulta y pago simulado de boletos con descuentos, y dashboard operativo con autenticación de Supabase.",
+      "Consulta y pago simulado de boletos con descuentos, y panel operativo con autenticación de Supabase.",
     ],
     challenge:
       "Conectar el mundo físico, sensores y barreras en los accesos, con una aplicación web donde se puedan consultar boletos, cobrar y ver la ocupación del día.",
@@ -645,7 +645,7 @@ const esProjects = buildProjects({
       {
         title: "Next.js 16 + Chakra UI",
         subtitle: "Frontend",
-        detail: "Consulta y pago de boletos, y dashboard con Supabase Auth.",
+        detail: "Consulta y pago de boletos, y panel con Supabase Auth.",
       },
     ],
     impactMetrics: [
@@ -667,7 +667,7 @@ const esProjects = buildProjects({
     ],
     gallery: [
       [
-        "Dashboard operativo",
+        "Panel operativo",
         "Ocupación, boletos e indicadores del día con datos de prueba.",
       ],
       [
