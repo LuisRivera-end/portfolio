@@ -18,6 +18,7 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-ice: var(--ice);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -44,6 +45,13 @@
   --radius-3xl: 0.6rem;
   --radius-4xl: 0.75rem;
   --animate-shine: shine var(--duration) infinite linear;
+  --animate-marquee: marquee 38s linear infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
 
   @keyframes shine {
     0% {
@@ -67,6 +75,8 @@
   --popover-foreground: oklch(0.205 0.006 100);
   --primary: oklch(0.91 0.21 119);
   --primary-foreground: oklch(0.205 0.006 100);
+  --ice: oklch(0.91 0.08 225);
+  --header-h: 4.25rem;
   --secondary: oklch(0.935 0.015 100);
   --secondary-foreground: oklch(0.205 0.006 100);
   --muted: oklch(0.935 0.015 100);
@@ -97,6 +107,7 @@
   html {
     background: var(--background);
     scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
   }
 
   body {
@@ -120,6 +131,12 @@
   textarea,
   select {
     font: inherit;
+  }
+
+  /* Cormorant defaults to old-style figures ("01" reads as "OI"). */
+  .font-heading {
+    font-feature-settings: "lnum" 1, "pnum" 1;
+    font-variant-numeric: lining-nums proportional-nums;
   }
 
   ::selection {
@@ -205,6 +222,78 @@
     color: var(--muted-foreground);
   }
 
+  .outline-numeral {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--foreground);
+  }
+
+  .accent-mark {
+    background: linear-gradient(
+      transparent 52%,
+      var(--primary) 52%,
+      var(--primary) 92%,
+      transparent 92%
+    );
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding-inline: 0.04em;
+  }
+
+  .frame-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-width: 0;
+    border-bottom: 2px solid var(--foreground);
+    background: var(--foreground);
+    padding: 0.42rem 0.6rem;
+    color: var(--background);
+  }
+
+  .frame-bar > i {
+    width: 0.5rem;
+    height: 0.5rem;
+    flex: none;
+    border: 1.5px solid var(--background);
+  }
+
+  .frame-bar > i:first-child {
+    background: var(--primary);
+  }
+
+  .frame-bar > span {
+    min-width: 0;
+    overflow: hidden;
+    margin-left: 0.35rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    opacity: 0.75;
+  }
+
+  .frame-phone {
+    overflow: hidden;
+    border: 2px solid var(--foreground);
+    border-radius: 1.1rem;
+    background: var(--foreground);
+    padding: 0.28rem;
+    box-shadow: 4px 4px 0 var(--foreground);
+  }
+
+  .frame-phone > img {
+    border-radius: 0.85rem;
+  }
+
+  .media-grid {
+    background-color: var(--muted);
+    background-image:
+      linear-gradient(oklch(0.205 0.006 100 / 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.205 0.006 100 / 0.07) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
   .text-balance {
     text-wrap: balance;
   }
@@ -224,5 +313,10 @@
     animation-iteration-count: 1 !important;
     transition-delay: 0ms !important;
     transition-duration: 1ms !important;
+  }
+
+  .marquee-track {
+    animation: none !important;
+    transform: none !important;
   }
 }

@@ -136,12 +136,14 @@ function PortfolioRoutes({
           path="projects/:slug"
           element={<ProjectRoute dictionary={dictionary} locale={locale} />}
         />
-        <Route path="*" element={<NotFoundPage dictionary={dictionary} locale={locale} />} />
+        <Route path="*" element={<NotFoundPage dictionary={dictionary} />} />
       </Routes>
       <footer className="border-t-2 border-foreground bg-card">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 py-6 text-sm text-muted-foreground sm:px-6 lg:px-10 md:flex-row md:items-center md:justify-between">
-          <span>{dictionary.footer}</span>
-          <span>{dictionary.brand.city}</span>
+          <span>
+            © {new Date().getFullYear()} {dictionary.brand.name}. {dictionary.footer}
+          </span>
+          <span className="shrink-0 whitespace-nowrap">{dictionary.brand.city}</span>
         </div>
       </footer>
     </>
@@ -158,10 +160,10 @@ function ProjectRoute({ dictionary, locale }: ProjectRouteProps) {
   const project = slug ? getProject(locale, slug) : undefined
 
   if (!project) {
-    return <NotFoundPage dictionary={dictionary} locale={locale} />
+    return <NotFoundPage dictionary={dictionary} />
   }
 
-  return <ProjectCasePage dictionary={dictionary} project={project} />
+  return <ProjectCasePage key={project.slug} dictionary={dictionary} project={project} />
 }
 
 export default App
