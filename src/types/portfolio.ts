@@ -7,13 +7,23 @@ export type NavSection =
   | "certifications"
   | "contact"
 
-export type ProjectStatus = "live" | "private" | "publicRepo" | "institutional"
+export type ProjectStatus =
+  | "live"
+  | "private"
+  | "publicRepo"
+  | "institutional"
+  | "academic"
+  | "personal"
 
 export type ProjectIcon =
   | "facsa"
-  | "presion"
-  | "estacionamiento"
+  | "openfy"
+  | "viczy"
   | "turnos"
+  | "estacionamiento"
+  | "bloomwish"
+
+export type MediaFrame = "browser" | "phone"
 
 export interface ContactMethod {
   href: string
@@ -30,6 +40,15 @@ export interface ExperienceEntry {
   location: string
   summary: string
   stack: string[]
+  current?: boolean
+}
+
+export interface EducationEntry {
+  school: string
+  degree: string
+  period: string
+  location: string
+  detail: string
 }
 
 export interface StackGroup {
@@ -59,10 +78,22 @@ export interface ImpactMetric {
   detail: string
 }
 
-export interface GalleryItem {
+export interface ProjectImage {
+  image: string
+  width: number
+  height: number
+}
+
+export interface GalleryItem extends ProjectImage {
   title: string
   description: string
-  image?: string
+}
+
+export interface ProjectCover extends ProjectImage {
+  /** Label drawn in the fake browser address bar. */
+  label: string
+  /** Optional phone screenshot layered over the desktop one. */
+  phone?: ProjectImage
 }
 
 export interface ProjectEntry {
@@ -78,15 +109,24 @@ export interface ProjectEntry {
   repoNote: string
   repositoryUrl?: string
   liveUrl?: string
+  releaseUrl?: string
+  platforms?: string[]
   stack: string[]
   status: ProjectStatus[]
   icon: ProjectIcon
+  cover: ProjectCover
+  highlights: string[]
   challenge: string
   solution: string
   impact: string
   architecture: ArchitectureNode[]
   impactMetrics: ImpactMetric[]
   gallery: GalleryItem[]
+}
+
+export interface HeroStat {
+  value: string
+  label: string
 }
 
 export interface SiteDictionary {
@@ -100,6 +140,7 @@ export interface SiteDictionary {
     monogram: string
     role: string
     city: string
+    siteLabel: string
   }
   navigation: {
     projects: string
@@ -110,12 +151,26 @@ export interface SiteDictionary {
     backToProjects: string
     onThisPage: string
   }
+  a11y: {
+    primaryNav: string
+    openMenu: string
+    closeMenu: string
+    language: string
+    sectionNav: string
+    openImage: string
+    closeDialog: string
+    previousImage: string
+    nextImage: string
+    imageCounter: string
+    projectPreview: string
+  }
   actions: {
     viewCv: string
     contact: string
     downloadCv: string
     visitLiveSite: string
     viewRepo: string
+    viewReleases: string
     viewCase: string
     viewAllProjects: string
     viewCredential: string
@@ -125,10 +180,15 @@ export interface SiteDictionary {
     private: string
     publicRepo: string
     institutional: string
+    academic: string
+    personal: string
+    flagship: string
+    current: string
     quickOverview: string
     selectedProjects: string
     challenge: string
     solution: string
+    highlights: string
     architecture: string
     impact: string
     gallery: string
@@ -136,19 +196,26 @@ export interface SiteDictionary {
     period: string
     team: string
     stack: string
+    platforms: string
     projectLinks: string
     projectType: string
     year: string
     technologies: string
     repositoryPrivate: string
     cvFormat: string
+    previousProject: string
+    nextProject: string
+    education: string
   }
   hero: {
     title: string
+    titleAccent: string
     body: string
     github: string
     linkedin: string
+    stats: HeroStat[]
   }
+  marquee: string[]
   featured: {
     eyebrow: string
     title: string
@@ -159,6 +226,7 @@ export interface SiteDictionary {
     title: string
     description: string
     entries: ExperienceEntry[]
+    education: EducationEntry
   }
   stackSection: {
     eyebrow: string
@@ -177,6 +245,12 @@ export interface SiteDictionary {
     title: string
     description: string
     methods: ContactMethod[]
+  }
+  notFound: {
+    eyebrow: string
+    title: string
+    body: string
+    cta: string
   }
   footer: string
   projects: ProjectEntry[]

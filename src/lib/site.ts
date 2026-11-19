@@ -36,6 +36,11 @@ export function getAssetPath(baseUrl: string, fileName: string) {
   return `${normalizedBase}${fileName}`
 }
 
+/** URL for a file in `public/`, honoring the deploy base path. */
+export function assetUrl(path: string) {
+  return getAssetPath(import.meta.env.BASE_URL, path)
+}
+
 export function getCvPath(baseUrl: string, locale: Locale) {
   return getAssetPath(baseUrl, cvFileNames[locale])
 }
@@ -50,6 +55,10 @@ export function getStatusVariant(status: ProjectStatus) {
       return "border-sky-700/20 bg-sky-100 text-sky-950"
     case "publicRepo":
       return "border-indigo-700/20 bg-indigo-100 text-indigo-950"
+    case "academic":
+      return "border-violet-700/20 bg-violet-100 text-violet-950"
+    case "personal":
+      return "border-stone-700/20 bg-stone-200 text-stone-950"
     default:
       return "bg-secondary text-secondary-foreground"
   }
