@@ -1,4 +1,4 @@
-import { startTransition, useEffect, useState } from "react"
+import { startTransition, useEffect, useLayoutEffect, useState } from "react"
 import {
   BrowserRouter,
   Route,
@@ -32,6 +32,12 @@ function App() {
     document.documentElement.lang = locale
     persistLocale(locale)
   }, [locale])
+
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual"
+    }
+  }, [])
 
   const dictionary = getDictionary(locale)
   const baseUrl = import.meta.env.BASE_URL
@@ -73,7 +79,7 @@ function PortfolioRoutes({
 }: PortfolioRoutesProps) {
   const location = useLocation()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (location.hash) {
       const sectionId = location.hash.replace("#", "")
       requestAnimationFrame(() => {
@@ -86,7 +92,13 @@ function PortfolioRoutes({
       return
     }
 
-    window.scrollTo({ top: 0, left: 0 })
+    const html = document.documentElement
+    const prevBehavior = html.style.scrollBehavior
+    html.style.scrollBehavior = "auto"
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" })
+    html.scrollTop = 0
+    document.body.scrollTop = 0
+    html.style.scrollBehavior = prevBehavior
   }, [location.hash, location.pathname])
 
   useEffect(() => {

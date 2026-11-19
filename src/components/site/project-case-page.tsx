@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useLayoutEffect, useRef, useState } from "react"
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
@@ -44,6 +44,16 @@ export function ProjectCasePage({ dictionary, project }: ProjectCasePageProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
   const activeSection = useActiveSection(sectionKeys)
   const Icon = projectIconMap[project.icon]
+
+  useLayoutEffect(() => {
+    const html = document.documentElement
+    const prevBehavior = html.style.scrollBehavior
+    html.style.scrollBehavior = "auto"
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" })
+    html.scrollTop = 0
+    document.body.scrollTop = 0
+    html.style.scrollBehavior = prevBehavior
+  }, [project.slug])
 
   useReveal(mainRef, [project.slug, dictionary.localeName])
 

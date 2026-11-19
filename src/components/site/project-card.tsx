@@ -57,7 +57,7 @@ export function ProjectCard({ dictionary, project, index, variant, className }: 
         />
       </div>
 
-      <div className="relative flex flex-1 flex-col p-5 sm:p-6">
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
         <div className="flex items-start justify-between gap-4">
           <span
             aria-hidden="true"
@@ -103,7 +103,7 @@ export function ProjectCard({ dictionary, project, index, variant, className }: 
           <Link
             to={`/projects/${project.slug}`}
             aria-label={`${dictionary.actions.viewCase}: ${project.title}`}
-            className="outline-none after:absolute after:inset-0 after:content-[''] focus-visible:underline focus-visible:decoration-primary focus-visible:decoration-4 focus-visible:underline-offset-4"
+            className="outline-none after:absolute after:inset-0 after:z-10 after:content-[''] focus-visible:underline focus-visible:decoration-primary focus-visible:decoration-4 focus-visible:underline-offset-4"
           >
             {project.title}
           </Link>
@@ -154,7 +154,7 @@ export function ProjectCard({ dictionary, project, index, variant, className }: 
           </span>
           <span
             aria-hidden="true"
-            className="inline-flex size-11 shrink-0 items-center justify-center border-2 border-foreground bg-primary shadow-[3px_3px_0_var(--foreground)] transition-transform duration-300 group-hover:rotate-45"
+            className="pointer-events-none inline-flex size-11 shrink-0 items-center justify-center border-2 border-foreground bg-primary shadow-[3px_3px_0_var(--foreground)] transition-transform duration-300 group-hover:rotate-45"
           >
             <ArrowUpRightIcon className="size-4" />
           </span>

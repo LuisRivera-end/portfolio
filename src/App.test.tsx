@@ -1,6 +1,6 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import App from './App'
 import { dictionaries } from './content/site-content'
@@ -151,5 +151,32 @@ describe('App', () => {
     await user.keyboard('{Escape}')
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
     expect(opener).toHaveFocus()
+  })
+
+  it('scrolls to top when navigating into a project and between adjacent projects', async () => {
+    const user = userEvent.setup()
+    const scrollToSpy = vi.spyOn(window, 'scrollTo')
+
+    render(<App />)
+
+    scrollToSpy.mockClear()
+
+    const facsaLink = screen.getByRole('link', { name: /ver caso: facsa/i })
+    await user.click(facsaLink)
+
+    expect(scrollToSpy).toHaveBeenCalledWith(
+      expect.objectContaining({ top: 0, left: 0, behavior: 'instant' }),
+    )
+
+    scrollToSpy.mockClear()
+
+    const nextProjectLink = screen.getByRole('link', { name: /siguiente proyecto/i })
+    await user.click(nextProjectLink)
+
+    expect(scrollToSpy).toHaveBeenCalledWith(
+      expect.objectContaining({ top: 0, left: 0, behavior: 'instant' }),
+    )
+
+    scrollToSpy.mockRestore()
   })
 })
