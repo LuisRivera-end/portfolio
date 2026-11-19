@@ -215,7 +215,6 @@ export interface SiteDictionary {
     linkedin: string
     stats: HeroStat[]
   }
-  marquee: string[]
   featured: {
     eyebrow: string
     title: string

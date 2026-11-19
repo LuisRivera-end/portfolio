@@ -45,13 +45,6 @@
   --radius-3xl: 0.6rem;
   --radius-4xl: 0.75rem;
   --animate-shine: shine var(--duration) infinite linear;
-  --animate-marquee: marquee 38s linear infinite;
-
-  @keyframes marquee {
-    to {
-      transform: translateX(-50%);
-    }
-  }
 
   @keyframes shine {
     0% {
@@ -318,10 +311,5 @@
     animation-iteration-count: 1 !important;
     transition-delay: 0ms !important;
     transition-duration: 1ms !important;
-  }
-
-  .marquee-track {
-    animation: none !important;
-    transform: none !important;
   }
 }

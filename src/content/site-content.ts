@@ -266,24 +266,6 @@ function buildProjects(copy: Record<string, ProjectCopy>): ProjectEntry[] {
   })
 }
 
-const marquee = [
-  "Nuxt",
-  "React",
-  "Next.js",
-  "NestJS",
-  "FastAPI",
-  "Express",
-  "Flask",
-  "PostgreSQL",
-  "MongoDB",
-  "Redis",
-  "Docker",
-  "WinUI 3",
-  "Kotlin",
-  "Three.js",
-  "Playwright",
-]
-
 const esProjects = buildProjects({
   facsa: {
     summary:
@@ -1317,7 +1299,6 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
         { value: "4", label: "plataformas en Openfy" },
       ],
     },
-    marquee,
     featured: {
       eyebrow: "Trabajo destacado",
       title: "Trabajo que puedo defender con detalle.",
@@ -1579,7 +1560,6 @@ export const dictionaries: Record<Locale, SiteDictionary> = {
         { value: "4", label: "platforms in Openfy" },
       ],
     },
-    marquee,
     featured: {
       eyebrow: "Featured work",
       title: "Work I can defend in detail.",

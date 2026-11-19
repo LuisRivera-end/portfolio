@@ -201,8 +201,6 @@ export function HomePage({ baseUrl, dictionary, cvHref }: HomePageProps) {
         </div>
       </section>
 
-      <Marquee items={dictionary.marquee} />
-
       <section
         id="projects"
         className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-5 py-20 sm:px-6 lg:px-10 lg:py-24"
@@ -578,29 +576,6 @@ function HeroShowcase({ dictionary }: { dictionary: SiteDictionary }) {
         ))}
       </ul>
     </aside>
-  )
-}
-
-function Marquee({ items }: { items: string[] }) {
-  const sequence = (copy: number) =>
-    items.map((item) => (
-      <span key={`${copy}-${item}`} className="flex shrink-0 items-center gap-6 pr-6">
-        <span>{item}</span>
-        <span className="size-2.5 rotate-45 bg-primary" />
-      </span>
-    ))
-
-  return (
-    <div
-      aria-hidden="true"
-      data-allow-overflow
-      className="relative overflow-hidden border-b-2 border-foreground bg-foreground py-4 text-background"
-    >
-      <div className="marquee-track flex w-max animate-marquee text-sm font-black tracking-[0.14em] uppercase sm:text-base">
-        {sequence(0)}
-        {sequence(1)}
-      </div>
-    </div>
   )
 }
 
