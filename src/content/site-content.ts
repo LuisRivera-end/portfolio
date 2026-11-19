@@ -15,6 +15,7 @@ const linkedinUrl = "https://www.linkedin.com/in/luis-rivera-dev/"
 const facsaUrl = "https://facsa.ujed.mx/"
 const openfyRepoUrl = "https://github.com/LuisRivera-end/openfy"
 const openfyReleasesUrl = "https://github.com/LuisRivera-end/openfy/releases"
+const openfyLandingUrl = "https://luisrivera-end.github.io/openfy/"
 const bloomwishUrl = "https://fur1us.pythonanywhere.com/"
 const estacionamientoRepoUrl =
   "https://github.com/LuisRivera-end/Estacionamiento-Arduino"
@@ -86,7 +87,8 @@ const projectBases: ProjectBase[] = [
     slug: "openfy",
     title: "Openfy",
     icon: "openfy",
-    status: ["publicRepo", "personal"],
+    status: ["live", "publicRepo", "personal"],
+    liveUrl: openfyLandingUrl,
     repositoryUrl: openfyRepoUrl,
     releaseUrl: openfyReleasesUrl,
     stack: [

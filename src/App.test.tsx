@@ -109,6 +109,26 @@ describe('App', () => {
     expect(screen.getByRole('navigation', { name: 'Secciones del caso' })).toBeInTheDocument()
   })
 
+  it('renders the Openfy case study with live landing, repo, and releases links', () => {
+    window.history.pushState({}, '', '/projects/openfy')
+
+    render(<App />)
+
+    expect(screen.getByRole('heading', { level: 1, name: 'Openfy' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /visitar sitio/i })).toHaveAttribute(
+      'href',
+      'https://luisrivera-end.github.io/openfy/',
+    )
+    expect(screen.getByRole('link', { name: /ver repositorio/i })).toHaveAttribute(
+      'href',
+      'https://github.com/LuisRivera-end/openfy',
+    )
+    expect(screen.getByRole('link', { name: /ver versiones/i })).toHaveAttribute(
+      'href',
+      'https://github.com/LuisRivera-end/openfy/releases',
+    )
+  })
+
   it.each(['es', 'en'] as const)('renders every case study in %s', (locale) => {
     for (const project of dictionaries[locale].projects) {
       window.localStorage.setItem('portfolio-locale', locale)
