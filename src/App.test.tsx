@@ -129,6 +129,23 @@ describe('App', () => {
     )
   })
 
+  it('updates document title, description, and Open Graph tags on navigation', () => {
+    window.history.pushState({}, '', '/')
+    const { unmount } = render(<App />)
+
+    expect(document.title).toBe(dictionaries.es.seo.title)
+    expect(document.querySelector('meta[name="description"]')).toHaveAttribute(
+      'content',
+      dictionaries.es.seo.description,
+    )
+    unmount()
+
+    window.history.pushState({}, '', '/projects/openfy')
+    render(<App />)
+
+    expect(document.title).toContain('Openfy')
+  })
+
   it.each(['es', 'en'] as const)('renders every case study in %s', (locale) => {
     for (const project of dictionaries[locale].projects) {
       window.localStorage.setItem('portfolio-locale', locale)

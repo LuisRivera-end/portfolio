@@ -106,9 +106,11 @@ function PortfolioRoutes({
       ? getProject(locale, location.pathname.replace("/projects/", ""))
       : undefined
 
-    document.title = currentProject
+    const pageTitle = currentProject
       ? `${currentProject.title} | ${dictionary.brand.name}`
       : dictionary.seo.title
+
+    document.title = pageTitle
 
     const metaDescription = document.querySelector('meta[name="description"]')
     const nextDescription = currentProject
@@ -123,6 +125,16 @@ function PortfolioRoutes({
       newMeta.content = nextDescription
       document.head.appendChild(newMeta)
     }
+
+    const setMetaProperty = (property: string, content: string) => {
+      const el = document.querySelector(`meta[property="${property}"]`)
+      if (el) {
+        el.setAttribute("content", content)
+      }
+    }
+
+    setMetaProperty("og:title", pageTitle)
+    setMetaProperty("og:description", nextDescription)
   }, [
     dictionary.brand.name,
     dictionary.seo.title,
